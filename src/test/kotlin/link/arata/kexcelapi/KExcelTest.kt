@@ -2,6 +2,7 @@ package link.arata.kexcelapi
 
 import org.hamcrest.Matchers.closeTo
 import org.junit.Assert.assertThat
+import org.junit.BeforeClass
 import org.junit.Test
 import java.nio.file.Files
 import java.nio.file.Paths
@@ -10,12 +11,19 @@ import org.hamcrest.Matchers.`is` as IS
 
 class KExcelTest() {
     companion object {
-        val BASE_DIR = "src/test/resources/link/arata/kexcelapi"
+        var BASE_DIR = ""
+
+        @JvmStatic
+        @BeforeClass
+        fun BeforeClass() {
+            val path = Paths.get(KExcelTest::class.java.getResource("book1.xlsx").path).parent
+            BASE_DIR = path.toString()
+        }
     }
 
     @Test
     fun セルのラベルでの読み込みテスト() {
-        KExcel.open("$BASE_DIR/ブック1.xlsx").use { workbook ->
+        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook.getSheetAt(0)
 
             assertThat(sheet("A1").getString(), IS("あ"))
@@ -39,7 +47,7 @@ class KExcelTest() {
 
     @Test
     fun セルのインデックスでの読み込みテスト() {
-        KExcel.open("$BASE_DIR/ブック1.xlsx").use { workbook ->
+        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook.getSheetAt(0)
 
             assertThat(sheet(0, 0).getString(), IS("あ"))
@@ -63,7 +71,7 @@ class KExcelTest() {
 
     @Test
     fun 計算式の文字列取得テスト() {
-        KExcel.open("$BASE_DIR/ブック1.xlsx").use { workbook ->
+        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook.getSheetAt(1)
 
             assertThat(sheet("A1").getString(), IS("a"))
@@ -75,7 +83,7 @@ class KExcelTest() {
 
     @Test
     fun 計算式の中のInt型取得テスト() {
-        KExcel.open("$BASE_DIR/ブック1.xlsx").use { workbook ->
+        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook.getSheetAt(1)
 
             assertThat(sheet("A2").getInt(), IS(33))
@@ -85,7 +93,7 @@ class KExcelTest() {
 
     @Test
     fun 計算式の中のInt型取得の小数の場合テスト() {
-        KExcel.open("$BASE_DIR/ブック1.xlsx").use { workbook ->
+        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook.getSheetAt(1)
 
             assertThat(sheet("A3").getInt(), IS(44))
@@ -95,7 +103,7 @@ class KExcelTest() {
 
     @Test
     fun 計算式の中のDouble型取得の場合テスト() {
-        KExcel.open("$BASE_DIR/ブック1.xlsx").use { workbook ->
+        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook.getSheetAt(1)
 
             assertThat(sheet("A3").getDouble(), IS(closeTo(44.5, 44.5)))
@@ -105,7 +113,7 @@ class KExcelTest() {
 
     @Test
     fun 計算式の中のDate型取得の場合テスト() {
-        KExcel.open("$BASE_DIR/ブック1.xlsx").use { workbook ->
+        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook.getSheetAt(1)
 
             val sdf = SimpleDateFormat("yyyy/MM/dd")
@@ -115,21 +123,21 @@ class KExcelTest() {
 
     @Test
     fun セルのラベルでの書き込みテスト() {
-        KExcel.open("$BASE_DIR/ブック1.xlsx").use { workbook ->
+        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook.getSheetAt(0)
 
             sheet("A1") value 100
             sheet("A2") value "あいうえお"
 
-            KExcel.write(workbook, "$BASE_DIR/ブック2.xlsx")
+            KExcel.write(workbook, "$BASE_DIR/book2.xlsx")
         }
 
-        KExcel.open("$BASE_DIR/ブック2.xlsx").use { workbook ->
+        KExcel.open("$BASE_DIR/book2.xlsx").use { workbook ->
             val sheet = workbook.getSheetAt(0)
 
             assertThat(sheet("A1").getInt(), IS(100))
             assertThat(sheet("A2").getString(), IS("あいうえお"))
         }
-        Files.delete(Paths.get("$BASE_DIR/ブック2.xlsx"))
+        Files.delete(Paths.get("$BASE_DIR/book2.xlsx"))
     }
 }
