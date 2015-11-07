@@ -7,6 +7,7 @@ import org.junit.Test
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.text.SimpleDateFormat
+import kotlin.test.fail
 import org.hamcrest.Matchers.`is` as IS
 
 class KExcelTest() {
@@ -43,6 +44,11 @@ class KExcelTest() {
             assertThat(sdf.format(sheet("B8").getDate()), IS("1899/12/31 11:27"))
             assertThat(sdf.format(sheet("C8").getDate()), IS("2015/10/01 00:00"))
         }
+    }
+
+    @Test
+    fun test() {
+        fail()
     }
 
     @Test
