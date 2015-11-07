@@ -7,7 +7,6 @@ import org.junit.Test
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.text.SimpleDateFormat
-import kotlin.test.fail
 import org.hamcrest.Matchers.`is` as IS
 
 class KExcelTest() {
