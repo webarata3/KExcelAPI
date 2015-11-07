@@ -47,11 +47,6 @@ class KExcelTest() {
     }
 
     @Test
-    fun test() {
-        fail()
-    }
-
-    @Test
     fun セルのインデックスでの読み込みテスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook.getSheetAt(0)
