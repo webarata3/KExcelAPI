@@ -14,6 +14,7 @@ sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
 jar {
+  group = 'link.arata'
   baseName = 'kexcelapi'
   version = '0.1.0'
 }
