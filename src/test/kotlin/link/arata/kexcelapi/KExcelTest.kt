@@ -41,9 +41,9 @@ class KExcelTest() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook.getSheetAt(0)
 
-            assertThat(sheet["A1"].toString(), IS("あ"))
-            assertThat(sheet["B2"].toString(), IS("い"))
-            assertThat(sheet["C3"].toString(), IS("う"))
+            assertThat(sheet["A1"].toStr(), IS("あ"))
+            assertThat(sheet["B2"].toStr(), IS("い"))
+            assertThat(sheet["C3"].toStr(), IS("う"))
 
             assertThat(sheet["A6"].toInt(), IS(1))
             assertThat(sheet["B6"].toInt(), IS(2))
@@ -65,9 +65,9 @@ class KExcelTest() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook.getSheetAt(0)
 
-            assertThat(sheet[0, 0].toString(), IS("あ"))
-            assertThat(sheet[1, 1].toString(), IS("い"))
-            assertThat(sheet[2, 2].toString(), IS("う"))
+            assertThat(sheet[0, 0].toStr(), IS("あ"))
+            assertThat(sheet[1, 1].toStr(), IS("い"))
+            assertThat(sheet[2, 2].toStr(), IS("う"))
 
             assertThat(sheet[0, 5].toInt(), IS(1))
             assertThat(sheet[1, 5].toInt(), IS(2))
@@ -81,6 +81,18 @@ class KExcelTest() {
             assertThat(sdf.format(sheet[0, 7].toDate()), IS("2015/01/03 08:15"))
             assertThat(sdf.format(sheet[1, 7].toDate()), IS("1899/12/31 11:27"))
             assertThat(sdf.format(sheet[2, 7].toDate()), IS("2015/10/01 00:00"))
+        }
+    }
+
+    @Test
+    fun 同じセルに違う方法で2回アクセス() {
+        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
+            val sheet = workbook.getSheetAt(0)
+
+            assertThat(sheet["B2"].toStr(), IS("い"))
+            assertThat(sheet[1, 1].toStr(), IS("い"))
+            assertThat(sheet["B7"].toStr(), IS("2.5"))
+            assertThat(sheet[1, 6].toStr(), IS("2.5"))
         }
     }
 
@@ -151,7 +163,7 @@ class KExcelTest() {
             val sheet = workbook.getSheetAt(0)
 
             assertThat(sheet["A1"].toInt(), IS(100))
-            assertThat(sheet["A2"].toString(), IS("あいうえお"))
+            assertThat(sheet["A2"].toStr(), IS("あいうえお"))
         }
         Files.delete(Paths.get("$BASE_DIR/book2.xlsx"))
     }
@@ -171,7 +183,7 @@ class KExcelTest() {
             val sheet = workbook.getSheetAt(0)
 
             assertThat(sheet["A1"].toInt(), IS(100))
-            assertThat(sheet["A2"].toString(), IS("あいうえお"))
+            assertThat(sheet["A2"].toStr(), IS("あいうえお"))
         }
         Files.delete(Paths.get("$BASE_DIR/book2.xlsx"))
     }
@@ -191,7 +203,7 @@ class KExcelTest() {
             val sheet = workbook.getSheetAt(0)
 
             assertThat(sheet["A1"].toInt(), IS(100))
-            assertThat(sheet["A2"].toString(), IS("あいうえお"))
+            assertThat(sheet["A2"].toStr(), IS("あいうえお"))
         }
         Files.delete(Paths.get("$BASE_DIR/book2.xlsx"))
     }
