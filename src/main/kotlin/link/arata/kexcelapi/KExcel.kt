@@ -90,6 +90,7 @@ public fun Cell.toStr(): String {
                 Cell.CELL_TYPE_BOOLEAN -> return cellValue.booleanValue.toString()
                 else -> throw IllegalAccessException("cellはStringに変換できません")
             }
+            
         }
         else -> throw IllegalAccessException("cellはStringに変換できません")
     }
