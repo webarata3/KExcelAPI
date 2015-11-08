@@ -44,24 +44,24 @@ public class KExcel {
     }
 }
 
-public operator fun Sheet.invoke(n: Int): Row {
+public operator fun Sheet.get(n: Int): Row {
     return getRow(n) ?: createRow(n)
 }
 
-public operator fun Row.invoke(n: Int): Cell {
+public operator fun Row.get(n: Int): Cell {
     return getCell(n) ?: createCell(n, Cell.CELL_TYPE_BLANK)
 }
 
-public operator fun Sheet.invoke(x: Int, y: Int): Cell {
-    var row = this(y)
-    return row(x)
+public operator fun Sheet.get(x: Int, y: Int): Cell {
+    var row = this[y]
+    return row[x]
 }
 
 private val ORIGIN = 'A'.toInt()
 private val RADIX = 26
 
 // https://github.com/nobeans/gexcelapi/blob/master/src/main/groovy/org/jggug/kobo/gexcelapi/GExcel.groovy
-public operator fun Sheet.invoke(cellLabel: String): Cell {
+public operator fun Sheet.get(cellLabel: String): Cell {
     val p1 = Pattern.compile("([a-zA-Z]+)([0-9]+)");
     val matcher = p1.matcher(cellLabel)
     matcher.find()
@@ -73,10 +73,10 @@ public operator fun Sheet.invoke(cellLabel: String): Cell {
         num += delta * Math.pow(RADIX.toDouble(), i.toDouble()).toInt()
     }
     num -= 1
-    return this(num, matcher.group(2).toInt() - 1)
+    return this[num, matcher.group(2).toInt() - 1]
 }
 
-public fun Cell.getString(): String {
+public fun Cell.toStr(): String {
     when (cellType) {
         Cell.CELL_TYPE_STRING -> return stringCellValue
         Cell.CELL_TYPE_NUMERIC -> return numericCellValue.toString()
@@ -95,7 +95,7 @@ public fun Cell.getString(): String {
     }
 }
 
-public fun Cell.getInt(): Int {
+public fun Cell.toInt(): Int {
     fun stringToInt(value: String): Int {
         try {
             // toIntだと44.5のような文字列を44に変換できないため、一度Dobuleに変換している
@@ -120,7 +120,7 @@ public fun Cell.getInt(): Int {
     }
 }
 
-public fun Cell.getDouble(): Double {
+public fun Cell.toDouble(): Double {
     fun stringToDouble(value: String): Double {
         try {
             return value.toDouble()
@@ -144,7 +144,7 @@ public fun Cell.getDouble(): Double {
     }
 }
 
-public fun Cell.getDate(): Date {
+public fun Cell.toDate(): Date {
     when (cellType) {
         Cell.CELL_TYPE_NUMERIC -> return dateCellValue
         Cell.CELL_TYPE_FORMULA -> {
@@ -165,7 +165,16 @@ private fun getFormulaCellValue(cell: Cell): CellValue {
     return evaluator.evaluate(cell)
 }
 
-public infix fun Cell.value(value: Any) {
+public operator fun Sheet.set(cellLabel: String, value: Any) {
+    this[cellLabel].setValue(value)
+}
+
+
+public operator fun Sheet.set(x: Int, y: Int, value: Any) {
+    this[x, y].setValue(value)
+}
+
+public fun Cell.setValue(value: Any) {
     when (value) {
         is String -> setCellValue(value)
         is Int -> setCellValue(value.toDouble())
