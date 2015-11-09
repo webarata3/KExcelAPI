@@ -13,10 +13,11 @@ apply plugin: 'kotlin'
 sourceCompatibility = 1.7
 targetCompatibility = 1.7
 
+group = 'link.arata.kexcelapi'
+version = '0.1.0'
+
 jar {
-  group = 'link.arata'
   baseName = 'kexcelapi'
-  version = '0.1.0'
 }
 
 repositories {
@@ -28,4 +29,25 @@ dependencies {
     compile 'org.apache.poi:poi-ooxml:3.13'
     testCompile 'junit:junit:4.12'
     testCompile 'org.hamcrest:hamcrest-library:1.3'
+}
+
+apply plugin: 'maven'
+
+/* Source作成用のタスク */
+task sourcesJar(type: Jar) {
+  from sourceSets.main.allSource
+  classifier = 'sources'
+}
+
+artifacts {
+  archives jar
+  archives sourcesJar
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      repository(url: uri(getProperty('mavenRepository')))
+    }
+  }
 }
