@@ -68,3 +68,6 @@ jacocoTestReport {
 
 apply plugin: 'com.github.kt3k.coveralls'
 
+coveralls {
+  sourceDirs = files(sourceSets.main.allSource.srcDirs).files.absolutePath
+}
