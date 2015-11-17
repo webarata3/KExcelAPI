@@ -31,7 +31,7 @@ class KExcelTest() {
         @JvmStatic
         @BeforeClass
         fun BeforeClass() {
-            val path = Paths.get(KExcelTest::class.java.getResource("book1.xlsx").path).parent
+            val path = Paths.get(KExcelTest::class.java.getResource("book1.xlsx").toURI()).parent
             BASE_DIR = path.toString()
         }
     }
