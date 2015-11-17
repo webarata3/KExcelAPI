@@ -5,6 +5,7 @@ buildscript {
     }
     dependencies {
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+        classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.0.1'
     }
 }
 
@@ -61,3 +62,6 @@ jacocoTestReport {
     html.enabled true
   }
 }
+
+apply plugin: 'com.github.kt3k.coveralls'
+
