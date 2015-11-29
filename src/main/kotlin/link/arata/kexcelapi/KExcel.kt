@@ -44,6 +44,14 @@ public class KExcel {
     }
 }
 
+public operator fun Workbook.get(n: Int): Sheet {
+    return this.getSheetAt(n)
+}
+
+public operator fun Workbook.get(name: String): Sheet {
+    return this.getSheet(name)
+}
+
 public operator fun Sheet.get(n: Int): Row {
     return getRow(n) ?: createRow(n)
 }
