@@ -39,7 +39,7 @@ class KExcelTest() {
     @Test
     fun セルのラベルでの読み込みテスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook.getSheetAt(0)
+            val sheet = workbook[0]
 
             assertThat(sheet["A1"].toStr(), IS("あ"))
             assertThat(sheet["B2"].toStr(), IS("い"))
@@ -63,7 +63,7 @@ class KExcelTest() {
     @Test
     fun セルのインデックスでの読み込みテスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook.getSheetAt(0)
+            val sheet = workbook["Sheet1"]
 
             assertThat(sheet[0, 0].toStr(), IS("あ"))
             assertThat(sheet[1, 1].toStr(), IS("い"))
@@ -87,7 +87,7 @@ class KExcelTest() {
     @Test
     fun 同じセルに違う方法で2回アクセス() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook.getSheetAt(0)
+            val sheet = workbook[0]
 
             assertThat(sheet["B2"].toStr(), IS("い"))
             assertThat(sheet[1, 1].toStr(), IS("い"))
@@ -99,7 +99,7 @@ class KExcelTest() {
     @Test
     fun 計算式の文字列取得テスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook.getSheetAt(1)
+            val sheet = workbook[1]
 
             assertThat(sheet["A1"].toStr(), IS("a"))
             assertThat(sheet["B1"].toStr(), IS("3.0"))
@@ -111,7 +111,7 @@ class KExcelTest() {
     @Test
     fun 計算式の中のInt型取得テスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook.getSheetAt(1)
+            val sheet = workbook[1]
 
             assertThat(sheet["A2"].toInt(), IS(33))
             assertThat(sheet["B2"].toInt(), IS(5))
@@ -121,7 +121,7 @@ class KExcelTest() {
     @Test
     fun 計算式の中のInt型取得の小数の場合テスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook.getSheetAt(1)
+            val sheet = workbook[1]
 
             assertThat(sheet["A3"].toInt(), IS(44))
             assertThat(sheet["B3"].toInt(), IS(33))
@@ -131,7 +131,7 @@ class KExcelTest() {
     @Test
     fun 計算式の中のDouble型取得の場合テスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook.getSheetAt(1)
+            val sheet = workbook[1]
 
             assertThat(sheet["A3"].toDouble(), IS(closeTo(44.5, 44.5)))
             assertThat(sheet["B3"].toDouble(), IS(closeTo(33.29, 33.31)))
@@ -141,7 +141,7 @@ class KExcelTest() {
     @Test
     fun 計算式の中のDate型取得の場合テスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook.getSheetAt(1)
+            val sheet = workbook[1]
 
             val sdf = SimpleDateFormat("yyyy/MM/dd")
             assertThat(sdf.format(sheet["B4"].toDate()), IS("2015/05/01"))
@@ -151,7 +151,7 @@ class KExcelTest() {
     @Test
     fun セルのラベルでの書き込みテスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook.getSheetAt(0)
+            val sheet = workbook[1]
 
             sheet["A1"].setValue(100)
             sheet["A2"].setValue("あいうえお")
@@ -160,7 +160,7 @@ class KExcelTest() {
         }
 
         KExcel.open("$BASE_DIR/book2.xlsx").use { workbook ->
-            val sheet = workbook.getSheetAt(0)
+            val sheet = workbook[1]
 
             assertThat(sheet["A1"].toInt(), IS(100))
             assertThat(sheet["A2"].toStr(), IS("あいうえお"))
@@ -171,7 +171,7 @@ class KExcelTest() {
     @Test
     fun シートのラベルからの書き込みテスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook.getSheetAt(0)
+            val sheet = workbook[0]
 
             sheet["A1"] = 100
             sheet["A2"] = "あいうえお"
@@ -180,7 +180,7 @@ class KExcelTest() {
         }
 
         KExcel.open("$BASE_DIR/book2.xlsx").use { workbook ->
-            val sheet = workbook.getSheetAt(0)
+            val sheet = workbook[0]
 
             assertThat(sheet["A1"].toInt(), IS(100))
             assertThat(sheet["A2"].toStr(), IS("あいうえお"))
@@ -191,7 +191,7 @@ class KExcelTest() {
     @Test
     fun シートのインデックスからの書き込みテスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook.getSheetAt(0)
+            val sheet = workbook[0]
 
             sheet[0, 0] = 100
             sheet[0, 1] = "あいうえお"
@@ -200,7 +200,7 @@ class KExcelTest() {
         }
 
         KExcel.open("$BASE_DIR/book2.xlsx").use { workbook ->
-            val sheet = workbook.getSheetAt(0)
+            val sheet = workbook[0]
 
             assertThat(sheet["A1"].toInt(), IS(100))
             assertThat(sheet["A2"].toStr(), IS("あいうえお"))
