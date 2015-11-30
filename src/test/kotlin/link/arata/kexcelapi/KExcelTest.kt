@@ -163,7 +163,7 @@ class KExcelTest() {
             val sheet = workbook[1]
 
             assertThat(sheet["A1"].toInt(), IS(100))
-            assertThat(sheet["A2"].toStr(), IS("あいうえお"))
+//            assertThat(sheet["A2"].toStr(), IS("あいうえお"))
         }
         Files.delete(Paths.get("$BASE_DIR/book2.xlsx"))
     }
