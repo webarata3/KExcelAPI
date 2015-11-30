@@ -22,7 +22,6 @@ import org.junit.Test
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.text.SimpleDateFormat
-import kotlin.test.assertEquals
 import org.hamcrest.Matchers.`is` as IS
 
 class KExcelTest() {
@@ -126,13 +125,11 @@ class KExcelTest() {
 
             val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm")
             assertThat(sdf.format(sheet["E6"].toDate()), IS("2015/11/30 00:00"))
-            assertThat(sdf.format(sheet[4, 5].toDate()),IS("2015/11/30 00:00"))
+            assertThat(sdf.format(sheet[4, 5].toDate()), IS("2015/11/30 00:00"))
             assertThat(sdf.format(sheet["G6"].toDate()), IS("2015/12/02 00:00"))
             assertThat(sdf.format(sheet[6, 5].toDate()), IS("2015/12/02 00:00"))
         }
     }
-
-
 
 
     @Test
@@ -150,7 +147,7 @@ class KExcelTest() {
             val sheet = workbook[1]
 
             assertThat(sheet["A1"].toInt(), IS(100))
-//            assertThat(sheet["A2"].toStr(), IS("あいうえお"))
+            //            assertThat(sheet["A2"].toStr(), IS("あいうえお"))
         }
         Files.delete(Paths.get("$BASE_DIR/book2.xlsx"))
     }
