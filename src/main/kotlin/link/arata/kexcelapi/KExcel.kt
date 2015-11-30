@@ -47,10 +47,10 @@ public class KExcel {
             var cellName = ""
             var threshold = 26
             var tempX = x
-            var loop = 0
+            var loop = 0 // ループの2回目以降は値から1を引く
             while (true) {
-                val ans = tempX % threshold
-                cellName =  (ans + 65 - loop).toChar() + cellName
+                val mod26 = tempX % threshold
+                cellName =  (mod26 + 65 - loop).toChar() + cellName
                 if (tempX < threshold) {
                     break
                 }
