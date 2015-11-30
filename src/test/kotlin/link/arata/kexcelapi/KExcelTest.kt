@@ -22,6 +22,7 @@ import org.junit.Test
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.text.SimpleDateFormat
+import kotlin.test.assertEquals
 import org.hamcrest.Matchers.`is` as IS
 
 class KExcelTest() {
@@ -41,22 +42,10 @@ class KExcelTest() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook[0]
 
-            assertThat(sheet["A1"].toStr(), IS("あ"))
-            assertThat(sheet["B2"].toStr(), IS("い"))
-            assertThat(sheet["C3"].toStr(), IS("う"))
-
-            assertThat(sheet["A6"].toInt(), IS(1))
-            assertThat(sheet["B6"].toInt(), IS(2))
-            assertThat(sheet["C6"].toDouble(), IS(3.0))
-
-            assertThat(sheet["A7"].toDouble(), IS(1.5))
-            assertThat(sheet["B7"].toDouble(), IS(2.5))
-            assertThat(sheet["C7"].toInt(), IS(3))
-
-            val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm")
-            assertThat(sdf.format(sheet["A8"].toDate()), IS("2015/01/03 08:15"))
-            assertThat(sdf.format(sheet["B8"].toDate()), IS("1899/12/31 11:27"))
-            assertThat(sdf.format(sheet["C8"].toDate()), IS("2015/10/01 00:00"))
+            assertThat(sheet["B2"].toStr(), IS("あいうえお"))
+            assertThat(sheet["C3"].toStr(), IS("123.0"))
+            assertThat(sheet["D4"].toStr(), IS("192.222"))
+            assertThat(sheet["C2"].toStr(), IS("123"))
         }
     }
 
@@ -65,22 +54,10 @@ class KExcelTest() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook["Sheet1"]
 
-            assertThat(sheet[0, 0].toStr(), IS("あ"))
-            assertThat(sheet[1, 1].toStr(), IS("い"))
-            assertThat(sheet[2, 2].toStr(), IS("う"))
-
-            assertThat(sheet[0, 5].toInt(), IS(1))
-            assertThat(sheet[1, 5].toInt(), IS(2))
-            assertThat(sheet[2, 5].toDouble(), IS(3.0))
-
-            assertThat(sheet[0, 6].toDouble(), IS(1.5))
-            assertThat(sheet[1, 6].toDouble(), IS(2.5))
-            assertThat(sheet[2, 6].toInt(), IS(3))
-
-            val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm")
-            assertThat(sdf.format(sheet[0, 7].toDate()), IS("2015/01/03 08:15"))
-            assertThat(sdf.format(sheet[1, 7].toDate()), IS("1899/12/31 11:27"))
-            assertThat(sdf.format(sheet[2, 7].toDate()), IS("2015/10/01 00:00"))
+            assertThat(sheet[1, 1].toStr(), IS("あいうえお"))
+            assertThat(sheet[2, 2].toStr(), IS("123.0"))
+            assertThat(sheet[3, 3].toStr(), IS("192.222"))
+            assertThat(sheet[2, 1].toStr(), IS("123"))
         }
     }
 
@@ -89,64 +66,74 @@ class KExcelTest() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook[0]
 
-            assertThat(sheet["B2"].toStr(), IS("い"))
-            assertThat(sheet[1, 1].toStr(), IS("い"))
-            assertThat(sheet["B7"].toStr(), IS("2.5"))
-            assertThat(sheet[1, 6].toStr(), IS("2.5"))
+            assertThat(sheet["B2"].toStr(), IS("あいうえお"))
+            assertThat(sheet[1, 1].toStr(), IS("あいうえお"))
+            assertThat(sheet["G2"].toStr(), IS("123150.51"))
+            assertThat(sheet[6, 1].toStr(), IS("123150.51"))
         }
     }
 
     @Test
-    fun 計算式の文字列取得テスト() {
+    fun 文字列の取得テスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook[1]
+            val sheet = workbook[0]
 
-            assertThat(sheet["A1"].toStr(), IS("a"))
-            assertThat(sheet["B1"].toStr(), IS("3.0"))
-            assertThat(sheet["C1"].toStr(), IS("true"))
-            assertThat(sheet["D1"].toStr(), IS(""))
+            assertThat(sheet["B2"].toStr(), IS("あいうえお"))
+            assertThat(sheet[1, 1].toStr(), IS("あいうえお"))
+            assertThat(sheet["C2"].toStr(), IS("123"))
+            assertThat(sheet[2, 1].toStr(), IS("123"))
+            assertThat(sheet["D2"].toStr(), IS("150.51"))
+            assertThat(sheet[3, 1].toStr(), IS("150.51"))
+            assertThat(sheet["E2"].toStr(), IS("2015/12/1"))
+            assertThat(sheet[4, 1].toStr(), IS("2015/12/1"))
+            assertThat(sheet["F2"].toStr(), IS("true"))
+            assertThat(sheet[5, 1].toStr(), IS("true"))
+            assertThat(sheet["G2"].toStr(), IS("123150.51"))
+            assertThat(sheet[6, 1].toStr(), IS("123150.51"))
         }
     }
 
     @Test
-    fun 計算式の中のInt型取得テスト() {
+    fun 整数の取得テスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook[1]
+            val sheet = workbook[0]
 
-            assertThat(sheet["A2"].toInt(), IS(33))
-            assertThat(sheet["B2"].toInt(), IS(5))
+            assertThat(sheet["C3"].toInt(), IS(123))
+            assertThat(sheet[2, 2].toInt(), IS(123))
+            assertThat(sheet["D3"].toInt(), IS(105))
+            assertThat(sheet[3, 2].toInt(), IS(105))
+            assertThat(sheet["G3"].toInt(), IS(369))
+            assertThat(sheet[6, 2].toInt(), IS(369))
         }
     }
 
     @Test
-    fun 計算式の中のInt型取得の小数の場合テスト() {
+    fun 小数の取得テスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook[1]
+            val sheet = workbook[0]
 
-            assertThat(sheet["A3"].toInt(), IS(44))
-            assertThat(sheet["B3"].toInt(), IS(33))
+            assertThat(sheet["D4"].toDouble(), closeTo(192.220, 192.224))
+            assertThat(sheet[3, 3].toDouble(), closeTo(192.220, 192.224))
+            assertThat(sheet["G4"].toDouble(), closeTo(64.072, 64.076))
+            assertThat(sheet[6, 3].toDouble(), closeTo(64.072, 64.076))
         }
     }
 
     @Test
-    fun 計算式の中のDouble型取得の場合テスト() {
+    fun 日付の取得テスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook[1]
+            val sheet = workbook[0]
 
-            assertThat(sheet["A3"].toDouble(), IS(closeTo(44.5, 44.5)))
-            assertThat(sheet["B3"].toDouble(), IS(closeTo(33.29, 33.31)))
+            val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm")
+            assertThat(sdf.format(sheet["E6"].toDate()), IS("2015/11/30 00:00"))
+            assertThat(sdf.format(sheet[4, 5].toDate()),IS("2015/11/30 00:00"))
+            assertThat(sdf.format(sheet["G6"].toDate()), IS("2015/12/02 00:00"))
+            assertThat(sdf.format(sheet[6, 5].toDate()), IS("2015/12/02 00:00"))
         }
     }
 
-    @Test
-    fun 計算式の中のDate型取得の場合テスト() {
-        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook[1]
 
-            val sdf = SimpleDateFormat("yyyy/MM/dd")
-            assertThat(sdf.format(sheet["B4"].toDate()), IS("2015/05/01"))
-        }
-    }
+
 
     @Test
     fun セルのラベルでの書き込みテスト() {
