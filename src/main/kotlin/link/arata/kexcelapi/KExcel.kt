@@ -41,6 +41,26 @@ public class KExcel {
                 e.printStackTrace()
             }
         }
+
+        @JvmStatic
+        fun cellIndexToCellName(x: Int, y: Int): String {
+            var cellName = ""
+            var threshold = 26
+            var tempX = x
+            var loop = 0
+            while (true) {
+                val ans = tempX % threshold
+                cellName =  (ans + 65 - loop).toChar() + cellName
+                if (tempX < threshold) {
+                    break
+                }
+                tempX = tempX / threshold
+                if (loop == 0) {
+                    loop += 1
+                }
+            }
+            return cellName + (y + 1)
+        }
     }
 }
 
