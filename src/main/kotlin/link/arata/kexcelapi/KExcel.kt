@@ -44,22 +44,13 @@ public class KExcel {
 
         @JvmStatic
         fun cellIndexToCellName(x: Int, y: Int): String {
-            var cellName = ""
-            var threshold = 26
-            var tempX = x
-            var loop = 0 // ループの2回目以降は値から1を引く
-            while (true) {
-                val mod26 = tempX % threshold
-                cellName =  (mod26 + 65 - loop).toChar() + cellName
-                if (tempX < threshold) {
-                    break
-                }
-                tempX = tempX / threshold
-                if (loop == 0) {
-                    loop += 1
-                }
-            }
+            var cellName = dec26(x, 0)
             return cellName + (y + 1)
+        }
+
+        private @JvmStatic
+        fun dec26(num: Int, first: Int): String {
+            return if (num > 25) { dec26(num / 26, 1) } else { "" } + ('A' + (num - first) % 26)
         }
     }
 }
