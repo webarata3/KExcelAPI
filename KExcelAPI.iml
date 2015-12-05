@@ -26,24 +26,24 @@
     <orderEntry type="library" exported="" name="Gradle: org.apache.poi:poi:3.13" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.apache.poi:poi-ooxml-schemas:3.13" level="project" />
     <orderEntry type="module-library" exported="">
-      <library name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.0.0-beta-2423">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.0.0-beta-3594">
         <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.0.0-beta-2423/505079036188f1e15d0fec2ba173dd52d9b575a3/kotlin-stdlib-1.0.0-beta-2423.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.0.0-beta-3594/59ef302ab0e9cb2b857a8af16584dc1710f30711/kotlin-stdlib-1.0.0-beta-3594.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.0.0-beta-2423/3c5728229a38ee5710bab158f5fbf1c39a58e889/kotlin-stdlib-1.0.0-beta-2423-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.0.0-beta-3594/8dde20414c95f90e75506ad5816542891861f12/kotlin-stdlib-1.0.0-beta-3594-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
     <orderEntry type="module-library" exported="">
-      <library name="Gradle: org.jetbrains.kotlin:kotlin-runtime:1.0.0-beta-2423">
+      <library name="Gradle: org.jetbrains.kotlin:kotlin-runtime:1.0.0-beta-3594">
         <CLASSES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-runtime/1.0.0-beta-2423/593d30030ae8853fa40c793d2b22a1c27c44dc01/kotlin-runtime-1.0.0-beta-2423.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-runtime/1.0.0-beta-3594/25b41117562c80a7035703785b8f92c6fbd5821e/kotlin-runtime-1.0.0-beta-3594.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES>
-          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-runtime/1.0.0-beta-2423/d65abc75ef2c641e7317ac1271317ba4c269ff83/kotlin-runtime-1.0.0-beta-2423-sources.jar!/" />
+          <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-runtime/1.0.0-beta-3594/382677f1885911710000fea4194519b7fe35c315/kotlin-runtime-1.0.0-beta-3594-sources.jar!/" />
         </SOURCES>
       </library>
     </orderEntry>
