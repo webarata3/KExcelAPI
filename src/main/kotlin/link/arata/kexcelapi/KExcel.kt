@@ -26,12 +26,12 @@ import java.util.regex.Pattern
 public class KExcel {
     companion object {
         @JvmStatic
-        fun open(fileName: String): Workbook {
+        poublic fun open(fileName: String): Workbook {
             return WorkbookFactory.create(FileInputStream(Paths.get(fileName).toFile()))
         }
 
         @JvmStatic
-        fun write(workbook: Workbook, fileName: String) {
+        public fun write(workbook: Workbook, fileName: String) {
             var outputPath = Paths.get(fileName)
             try {
                 Files.newOutputStream(outputPath).use {
@@ -43,14 +43,18 @@ public class KExcel {
         }
 
         @JvmStatic
-        fun cellIndexToCellName(x: Int, y: Int): String {
+        public fun cellIndexToCellName(x: Int, y: Int): String {
             var cellName = dec26(x, 0)
             return cellName + (y + 1)
         }
 
-        private @JvmStatic
-        fun dec26(num: Int, first: Int): String {
-            return if (num > 25) { dec26(num / 26, 1) } else { "" } + ('A' + (num - first) % 26)
+        @JvmStatic
+        private fun dec26(num: Int, first: Int): String {
+            return if (num > 25) {
+                dec26(num / 26, 1)
+            } else {
+                ""
+            } + ('A' + (num - first) % 26)
         }
     }
 }
