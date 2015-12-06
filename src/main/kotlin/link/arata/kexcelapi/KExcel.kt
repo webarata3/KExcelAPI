@@ -177,13 +177,13 @@ public fun Cell.toDouble(): Double {
     }
 }
 
-public fun Cell.toBoolean(): String {
+public fun Cell.toBoolean(): Boolean {
     when (cellType) {
-        Cell.CELL_TYPE_BOOLEAN -> return booleanCellValue.toString()
+        Cell.CELL_TYPE_BOOLEAN -> return booleanCellValue
         Cell.CELL_TYPE_FORMULA -> {
             val cellValue = getFormulaCellValue(this)
             when (cellValue.cellType) {
-                Cell.CELL_TYPE_BOOLEAN -> return cellValue.booleanValue.toString()
+                Cell.CELL_TYPE_BOOLEAN -> return cellValue.booleanValue
                 else -> throw IllegalAccessException("cellはBooleanに変換できません")
             }
         }
