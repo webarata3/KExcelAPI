@@ -93,6 +93,8 @@ class KExcelTest() {
             assertThat(sheet[5, 1].toStr(), IS("true"))
             assertThat(sheet["G2"].toStr(), IS("123150.51"))
             assertThat(sheet[6, 1].toStr(), IS("123150.51"))
+            assertThat(sheet["G3"].toStr(), IS("369"))
+            assertThat(sheet[6, 2].toStr(), IS("369"))
         }
     }
 
@@ -115,6 +117,8 @@ class KExcelTest() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook[0]
 
+            assertThat(sheet["C4"].toDouble(), IS(123.0))
+            assertThat(sheet[2, 3].toDouble(), IS(123.0))
             assertThat(sheet["D4"].toDouble(), closeTo(192.220, 192.224))
             assertThat(sheet[3, 3].toDouble(), closeTo(192.220, 192.224))
             assertThat(sheet["G4"].toDouble(), closeTo(64.072, 64.076))

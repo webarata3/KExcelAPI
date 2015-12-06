@@ -99,21 +99,27 @@ public operator fun Sheet.get(cellLabel: String): Cell {
     return this[num, matcher.group(2).toInt() - 1]
 }
 
+private fun normalizeNumericString(numeric: Double): String {
+    return if (numeric == Math.ceil(numeric)) {
+        numeric.toInt().toString()
+    } else {
+        numeric.toString()
+    }
+}
+
 public fun Cell.toStr(): String {
     when (cellType) {
         Cell.CELL_TYPE_STRING -> return stringCellValue
-        Cell.CELL_TYPE_NUMERIC -> {
-            val numeric = numericCellValue
-            return if (numeric == Math.ceil(numeric)) numeric.toInt().toString() else numeric.toString()
-        }
+        Cell.CELL_TYPE_NUMERIC -> return normalizeNumericString(numericCellValue)
         Cell.CELL_TYPE_BOOLEAN -> return booleanCellValue.toString()
         Cell.CELL_TYPE_BLANK -> return ""
         Cell.CELL_TYPE_FORMULA -> {
             val cellValue = getFormulaCellValue(this)
             when (cellValue.cellType) {
                 Cell.CELL_TYPE_STRING -> return cellValue.stringValue
-                Cell.CELL_TYPE_NUMERIC -> return cellValue.numberValue.toString()
+                Cell.CELL_TYPE_NUMERIC -> return normalizeNumericString(cellValue.numberValue)
                 Cell.CELL_TYPE_BOOLEAN -> return cellValue.booleanValue.toString()
+                Cell.CELL_TYPE_BLANK -> return ""
                 else -> throw IllegalAccessException("cellはStringに変換できません")
             }
 
