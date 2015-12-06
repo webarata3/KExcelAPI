@@ -95,6 +95,12 @@ class KExcelTest() {
             assertThat(sheet[6, 1].toStr(), IS("123150.51"))
             assertThat(sheet["G3"].toStr(), IS("369"))
             assertThat(sheet[6, 2].toStr(), IS("369"))
+            assertThat(sheet["G5"].toStr(), IS("false"))
+            assertThat(sheet[6, 4].toStr(), IS("false"))
+            assertThat(sheet["H2"].toStr(), IS(""))
+            assertThat(sheet[7, 1].toStr(), IS(""))
+            assertThat(sheet["I2"].toStr(), IS(""))
+            assertThat(sheet[8, 1].toStr(), IS(""))
         }
     }
 
