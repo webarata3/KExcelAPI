@@ -132,8 +132,8 @@ class KExcelTest() {
             val sheet = workbook[0]
 
             assertThat(sheet["F5"].toBoolean(), IS(true))
-            assertThat(sheet[5, 4].toBoolean(), IS(false))
-            assertThat(sheet["G5"].toBoolean(), IS(true))
+            assertThat(sheet[5, 4].toBoolean(), IS(true))
+            assertThat(sheet["G5"].toBoolean(), IS(false))
             assertThat(sheet[6, 4].toBoolean(), IS(false))
         }
     }
