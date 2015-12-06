@@ -127,6 +127,18 @@ class KExcelTest() {
     }
 
     @Test
+    fun 論理値の取得テスト() {
+        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
+            val sheet = workbook[0]
+
+            assertThat(sheet["F5"].toBoolean(), IS(true))
+            assertThat(sheet[5, 4].toBoolean(), IS(false))
+            assertThat(sheet["G5"].toBoolean(), IS(true))
+            assertThat(sheet[6, 4].toBoolean(), IS(false))
+        }
+    }
+
+    @Test
     fun 日付の取得テスト() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook[0]
@@ -136,6 +148,11 @@ class KExcelTest() {
             assertThat(sdf.format(sheet[4, 5].toDate()), IS("2015/11/30 00:00"))
             assertThat(sdf.format(sheet["G6"].toDate()), IS("2015/12/02 00:00"))
             assertThat(sdf.format(sheet[6, 5].toDate()), IS("2015/12/02 00:00"))
+
+            assertThat(sdf.format(sheet["E7"].toDate()), IS("1899/12/31 10:10"))
+            assertThat(sdf.format(sheet[4, 6].toDate()), IS("1899/12/31 10:10"))
+            assertThat(sdf.format(sheet["G7"].toDate()), IS("1899/12/31 12:34"))
+            assertThat(sdf.format(sheet[6, 6].toDate()), IS("1899/12/31 12:34"))
         }
     }
 
