@@ -177,6 +177,20 @@ public fun Cell.toDouble(): Double {
     }
 }
 
+public fun Cell.toBoolean(): String {
+    when (cellType) {
+        Cell.CELL_TYPE_BOOLEAN -> return booleanCellValue.toString()
+        Cell.CELL_TYPE_FORMULA -> {
+            val cellValue = getFormulaCellValue(this)
+            when (cellValue.cellType) {
+                Cell.CELL_TYPE_BOOLEAN -> return cellValue.booleanValue.toString()
+                else -> throw IllegalAccessException("cellはBooleanに変換できません")
+            }
+        }
+        else -> throw IllegalAccessException("cellはBooleanに変換できません")
+    }
+}
+
 public fun Cell.toDate(): Date {
     when (cellType) {
         Cell.CELL_TYPE_NUMERIC -> return dateCellValue
