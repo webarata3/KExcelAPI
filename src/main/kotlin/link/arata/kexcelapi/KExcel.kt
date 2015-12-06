@@ -38,7 +38,7 @@ public class KExcel {
                     workbook.write(it)
                 }
             } catch (e: IOException) {
-                e.printStackTrace()
+                throw e
             }
         }
 
