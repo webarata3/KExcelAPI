@@ -26,7 +26,7 @@ import java.util.regex.Pattern
 public class KExcel {
     companion object {
         @JvmStatic
-        poublic fun open(fileName: String): Workbook {
+        public fun open(fileName: String): Workbook {
             return WorkbookFactory.create(FileInputStream(Paths.get(fileName).toFile()))
         }
 
@@ -102,7 +102,10 @@ public operator fun Sheet.get(cellLabel: String): Cell {
 public fun Cell.toStr(): String {
     when (cellType) {
         Cell.CELL_TYPE_STRING -> return stringCellValue
-        Cell.CELL_TYPE_NUMERIC -> return numericCellValue.toString()
+        Cell.CELL_TYPE_NUMERIC -> {
+            val numeric = numericCellValue
+            return if (numeric == Math.ceil(numeric)) numeric.toInt().toString() else numeric.toString()
+        }
         Cell.CELL_TYPE_BOOLEAN -> return booleanCellValue.toString()
         Cell.CELL_TYPE_BLANK -> return ""
         Cell.CELL_TYPE_FORMULA -> {

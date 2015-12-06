@@ -42,7 +42,7 @@ class KExcelTest() {
             val sheet = workbook[0]
 
             assertThat(sheet["B2"].toStr(), IS("あいうえお"))
-            assertThat(sheet["C3"].toStr(), IS("123.0"))
+            assertThat(sheet["C3"].toStr(), IS("123"))
             assertThat(sheet["D4"].toStr(), IS("192.222"))
             assertThat(sheet["C2"].toStr(), IS("123"))
         }
@@ -54,7 +54,7 @@ class KExcelTest() {
             val sheet = workbook["Sheet1"]
 
             assertThat(sheet[1, 1].toStr(), IS("あいうえお"))
-            assertThat(sheet[2, 2].toStr(), IS("123.0"))
+            assertThat(sheet[2, 2].toStr(), IS("123"))
             assertThat(sheet[3, 3].toStr(), IS("192.222"))
             assertThat(sheet[2, 1].toStr(), IS("123"))
         }
@@ -81,8 +81,12 @@ class KExcelTest() {
             assertThat(sheet[1, 1].toStr(), IS("あいうえお"))
             assertThat(sheet["C2"].toStr(), IS("123"))
             assertThat(sheet[2, 1].toStr(), IS("123"))
+            assertThat(sheet["C3"].toStr(), IS("123"))
+            assertThat(sheet[2, 2].toStr(), IS("123"))
             assertThat(sheet["D2"].toStr(), IS("150.51"))
             assertThat(sheet[3, 1].toStr(), IS("150.51"))
+            assertThat(sheet["D3"].toStr(), IS("105.5"))
+            assertThat(sheet[3, 2].toStr(), IS("105.5"))
             assertThat(sheet["E2"].toStr(), IS("2015/12/1"))
             assertThat(sheet[4, 1].toStr(), IS("2015/12/1"))
             assertThat(sheet["F2"].toStr(), IS("true"))
