@@ -20,6 +20,7 @@ import org.hamcrest.Matchers.closeTo
 import org.junit.Assert.assertThat
 import org.junit.BeforeClass
 import org.junit.Test
+import java.nio.file.Files
 import java.nio.file.Paths
 import java.text.SimpleDateFormat
 import org.hamcrest.Matchers.`is` as IS
@@ -236,4 +237,44 @@ class KExcelTest() {
         assertThat(KExcel.cellIndexToCellName(702, 1), IS("AAA2"));
         assertThat(KExcel.cellIndexToCellName(16383, 1), IS("XFD2"));
     }
+
+    @Test
+    fun workbookを作成しそれを書き込んだ後読み込むテスト() {
+        val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+        val date = sdf.parse("2015/12/06 17:59:58")
+        val workbook = XSSFWorkbook()
+        val sheet = workbook.createSheet("test")
+
+        sheet["A1"] = 100
+        sheet["A2"] = "あいうえお"
+        sheet["A3"] = 1.05
+        sheet["A4"] = date
+        sheet["A5"] = true
+
+        assertThat(sheet["A1"].toInt(), IS(100))
+        assertThat(sheet["A2"].toStr(), IS("あいうえお"))
+        assertThat(sheet["A3"].toDouble(), closeTo(1.049, 1.051))
+        assertThat(sdf.format(sheet["A4"].toDate()), IS("2015/12/06 17:59:58"))
+        assertThat(sheet["A5"].toBoolean(), IS(true))
+
+        KExcel.write(workbook, "$BASE_DIR/book2.xlsx")
+
+        workbook.close()
+
+        val outputPath = Paths.get("$BASE_DIR/book2.xlsx")
+        assertThat(Files.exists(outputPath), IS(true))
+
+        KExcel.open("$BASE_DIR/book2.xlsx").use { workbook ->
+            assertThat(sheet["A1"].toInt(), IS(100))
+            assertThat(sheet["A2"].toStr(), IS("あいうえお"))
+            assertThat(sheet["A3"].toDouble(), closeTo(1.049, 1.051))
+            assertThat(sdf.format(sheet["A4"].toDate()), IS("2015/12/06 17:59:58"))
+            assertThat(sheet["A5"].toBoolean(), IS(true))
+        }
+
+
+        Files.delete(outputPath)
+        assertThat(Files.exists(outputPath), IS(false))
+    }
+
 }
