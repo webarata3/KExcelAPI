@@ -15,6 +15,7 @@
  */
 package link.arata.kexcelapi
 
+import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.hamcrest.Matchers.closeTo
 import org.junit.Assert.assertThat
 import org.junit.BeforeClass
@@ -22,6 +23,7 @@ import org.junit.Test
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.text.SimpleDateFormat
+import java.util.*
 import org.hamcrest.Matchers.`is` as IS
 
 class KExcelTest() {
@@ -165,62 +167,38 @@ class KExcelTest() {
 
     @Test
     fun セルのラベルでの書き込みテスト() {
-        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook[1]
+        val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+        val date = sdf.parse("2015/12/06 17:59:58")
+        val workbook = XSSFWorkbook()
+        val sheet = workbook.createSheet("test")
 
-            sheet["A1"].setValue(100)
-            sheet["A2"].setValue("あいうえお")
+        sheet["A1"].setValue(100)
+        sheet["A2"].setValue("あいうえお")
+        sheet["A3"].setValue(1.05)
+        sheet["A4"].setValue(date)
 
-            KExcel.write(workbook, "$BASE_DIR/book2.xlsx")
-        }
-
-        KExcel.open("$BASE_DIR/book2.xlsx").use { workbook ->
-            val sheet = workbook[1]
-
-            assertThat(sheet["A1"].toInt(), IS(100))
-            //            assertThat(sheet["A2"].toStr(), IS("あいうえお"))
-        }
-        Files.delete(Paths.get("$BASE_DIR/book2.xlsx"))
-    }
-
-    @Test
-    fun シートのラベルからの書き込みテスト() {
-        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook[0]
-
-            sheet["A1"] = 100
-            sheet["A2"] = "あいうえお"
-
-            KExcel.write(workbook, "$BASE_DIR/book2.xlsx")
-        }
-
-        KExcel.open("$BASE_DIR/book2.xlsx").use { workbook ->
-            val sheet = workbook[0]
-
-            assertThat(sheet["A1"].toInt(), IS(100))
-            assertThat(sheet["A2"].toStr(), IS("あいうえお"))
-        }
-        Files.delete(Paths.get("$BASE_DIR/book2.xlsx"))
+        assertThat(sheet["A1"].toInt(), IS(100))
+        assertThat(sheet["A2"].toStr(), IS("あいうえお"))
+        assertThat(sheet["A3"].toDouble(), closeTo(1.049, 1.051))
+        assertThat(sdf.format(sheet["A4"].toDate()), IS("2015/12/06 17:59:58"))
     }
 
     @Test
     fun シートのインデックスからの書き込みテスト() {
-        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
-            val sheet = workbook[0]
+        val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm:ss")
+        val date = sdf.parse("2015/12/06 17:59:58")
+        val workbook = XSSFWorkbook()
+        val sheet = workbook.createSheet("test")
 
-            sheet[0, 0] = 100
-            sheet[0, 1] = "あいうえお"
+        sheet[0, 0].setValue(100)
+        sheet[0, 1].setValue("あいうえお")
+        sheet[0, 2].setValue(1.05)
+        sheet[0, 3].setValue(date)
 
-            KExcel.write(workbook, "$BASE_DIR/book2.xlsx")
-        }
-
-        KExcel.open("$BASE_DIR/book2.xlsx").use { workbook ->
-            val sheet = workbook[0]
-
-            assertThat(sheet["A1"].toInt(), IS(100))
-            assertThat(sheet["A2"].toStr(), IS("あいうえお"))
-        }
-        Files.delete(Paths.get("$BASE_DIR/book2.xlsx"))
+        assertThat(sheet[0, 0].toInt(), IS(100))
+        assertThat(sheet[0, 1].toStr(), IS("あいうえお"))
+        assertThat(sheet[0, 2].toDouble(), closeTo(1.049, 1.051))
+        assertThat(sdf.format(sheet[0, 3].toDate()), IS("2015/12/06 17:59:58"))
     }
 
     @Test
