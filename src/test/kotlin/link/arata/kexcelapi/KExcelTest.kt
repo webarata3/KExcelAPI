@@ -45,6 +45,8 @@ class KExcelTest() {
             assertThat(sheet["C3"].toStr(), IS("123"))
             assertThat(sheet["D4"].toStr(), IS("192.222"))
             assertThat(sheet["C2"].toStr(), IS("123"))
+
+            workbook.close()
         }
     }
 
@@ -57,6 +59,8 @@ class KExcelTest() {
             assertThat(sheet[2, 2].toStr(), IS("123"))
             assertThat(sheet[3, 3].toStr(), IS("192.222"))
             assertThat(sheet[2, 1].toStr(), IS("123"))
+
+            workbook.close()
         }
     }
 
@@ -69,6 +73,8 @@ class KExcelTest() {
             assertThat(sheet[1, 1].toStr(), IS("あいうえお"))
             assertThat(sheet["G2"].toStr(), IS("123150.51"))
             assertThat(sheet[6, 1].toStr(), IS("123150.51"))
+
+            workbook.close()
         }
     }
 
@@ -101,6 +107,8 @@ class KExcelTest() {
             assertThat(sheet[7, 1].toStr(), IS(""))
             assertThat(sheet["I2"].toStr(), IS(""))
             assertThat(sheet[8, 1].toStr(), IS(""))
+
+            workbook.close()
         }
     }
 
@@ -115,6 +123,8 @@ class KExcelTest() {
             assertThat(sheet[3, 2].toInt(), IS(105))
             assertThat(sheet["G3"].toInt(), IS(369))
             assertThat(sheet[6, 2].toInt(), IS(369))
+
+            workbook.close()
         }
     }
 
@@ -129,6 +139,8 @@ class KExcelTest() {
             assertThat(sheet[3, 3].toDouble(), closeTo(192.220, 192.224))
             assertThat(sheet["G4"].toDouble(), closeTo(64.072, 64.076))
             assertThat(sheet[6, 3].toDouble(), closeTo(64.072, 64.076))
+
+            workbook.close()
         }
     }
 
@@ -141,6 +153,8 @@ class KExcelTest() {
             assertThat(sheet[5, 4].toBoolean(), IS(true))
             assertThat(sheet["G5"].toBoolean(), IS(false))
             assertThat(sheet[6, 4].toBoolean(), IS(false))
+
+            workbook.close()
         }
     }
 
@@ -159,6 +173,8 @@ class KExcelTest() {
             assertThat(sdf.format(sheet[4, 6].toDate()), IS("1899/12/31 10:10"))
             assertThat(sdf.format(sheet["G7"].toDate()), IS("1899/12/31 12:34"))
             assertThat(sdf.format(sheet[6, 6].toDate()), IS("1899/12/31 12:34"))
+
+            workbook.close()
         }
     }
 
@@ -179,6 +195,8 @@ class KExcelTest() {
         assertThat(sheet["A2"].toStr(), IS("あいうえお"))
         assertThat(sheet["A3"].toDouble(), closeTo(1.049, 1.051))
         assertThat(sdf.format(sheet["A4"].toDate()), IS("2015/12/06 17:59:58"))
+
+        workbook.close()
     }
 
     @Test
@@ -197,6 +215,8 @@ class KExcelTest() {
         assertThat(sheet[0, 1].toStr(), IS("あいうえお"))
         assertThat(sheet[0, 2].toDouble(), closeTo(1.049, 1.051))
         assertThat(sdf.format(sheet[0, 3].toDate()), IS("2015/12/06 17:59:58"))
+
+        workbook.close()
     }
 
     @Test
@@ -211,6 +231,5 @@ class KExcelTest() {
         assertThat(KExcel.cellIndexToCellName(255, 1), IS("IV2"));
         assertThat(KExcel.cellIndexToCellName(702, 1), IS("AAA2"));
         assertThat(KExcel.cellIndexToCellName(16383, 1), IS("XFD2"));
-
     }
 }
