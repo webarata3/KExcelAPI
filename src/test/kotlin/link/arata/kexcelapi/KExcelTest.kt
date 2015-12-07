@@ -20,10 +20,8 @@ import org.hamcrest.Matchers.closeTo
 import org.junit.Assert.assertThat
 import org.junit.BeforeClass
 import org.junit.Test
-import java.nio.file.Files
 import java.nio.file.Paths
 import java.text.SimpleDateFormat
-import java.util.*
 import org.hamcrest.Matchers.`is` as IS
 
 class KExcelTest() {

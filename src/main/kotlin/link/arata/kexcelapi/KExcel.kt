@@ -221,7 +221,6 @@ public operator fun Sheet.set(cellLabel: String, value: Any) {
     this[cellLabel].setValue(value)
 }
 
-
 public operator fun Sheet.set(x: Int, y: Int, value: Any) {
     this[x, y].setValue(value)
 }
