@@ -220,7 +220,7 @@ public operator fun Sheet.set(x: Int, y: Int, value: Any) {
     this[x, y].setValue(value)
 }
 
-public fun Cell.setValue(value: Any) {
+private fun Cell.setValue(value: Any) {
     when (value) {
         is String -> setCellValue(value)
         is Int -> setCellValue(value.toDouble())
