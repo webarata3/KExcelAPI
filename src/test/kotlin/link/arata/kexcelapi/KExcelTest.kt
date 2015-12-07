@@ -186,10 +186,10 @@ class KExcelTest() {
         val workbook = XSSFWorkbook()
         val sheet = workbook.createSheet("test")
 
-        sheet["A1"].setValue(100)
-        sheet["A2"].setValue("あいうえお")
-        sheet["A3"].setValue(1.05)
-        sheet["A4"].setValue(date)
+        sheet["A1"] = 100
+        sheet["A2"] = "あいうえお"
+        sheet["A3"] = 1.05
+        sheet["A4"] = date
 
         assertThat(sheet["A1"].toInt(), IS(100))
         assertThat(sheet["A2"].toStr(), IS("あいうえお"))
@@ -206,10 +206,10 @@ class KExcelTest() {
         val workbook = XSSFWorkbook()
         val sheet = workbook.createSheet("test")
 
-        sheet[0, 0].setValue(100)
-        sheet[0, 1].setValue("あいうえお")
-        sheet[0, 2].setValue(1.05)
-        sheet[0, 3].setValue(date)
+        sheet[0, 0] = 100
+        sheet[0, 1] = "あいうえお"
+        sheet[0, 2] = 1.05
+        sheet[0, 3] = date
 
         assertThat(sheet[0, 0].toInt(), IS(100))
         assertThat(sheet[0, 1].toStr(), IS("あいうえお"))
