@@ -31,6 +31,11 @@ public class KExcel {
         }
 
         @JvmStatic
+        public fun close(workbook: Workbook) {
+            workbook.close()
+        }
+
+        @JvmStatic
         public fun write(workbook: Workbook, fileName: String) {
             var outputPath = Paths.get(fileName)
             try {
@@ -226,6 +231,7 @@ public fun Cell.setValue(value: Any) {
         is String -> setCellValue(value)
         is Int -> setCellValue(value.toDouble())
         is Double -> setCellValue(value)
+        is Date -> setCellValue(value)
         else -> throw IllegalArgumentException("文字列か数値のみ対応しています")
     }
 }
