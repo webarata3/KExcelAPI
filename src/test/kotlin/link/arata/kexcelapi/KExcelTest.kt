@@ -190,11 +190,13 @@ class KExcelTest() {
         sheet["A2"] = "あいうえお"
         sheet["A3"] = 1.05
         sheet["A4"] = date
+        sheet["A5"] = true
 
         assertThat(sheet["A1"].toInt(), IS(100))
         assertThat(sheet["A2"].toStr(), IS("あいうえお"))
         assertThat(sheet["A3"].toDouble(), closeTo(1.049, 1.051))
         assertThat(sdf.format(sheet["A4"].toDate()), IS("2015/12/06 17:59:58"))
+        assertThat(sheet["A5"].toBoolean(), IS(true))
 
         workbook.close()
     }
@@ -210,11 +212,13 @@ class KExcelTest() {
         sheet[0, 1] = "あいうえお"
         sheet[0, 2] = 1.05
         sheet[0, 3] = date
+        sheet[0, 4] = true
 
         assertThat(sheet[0, 0].toInt(), IS(100))
         assertThat(sheet[0, 1].toStr(), IS("あいうえお"))
         assertThat(sheet[0, 2].toDouble(), closeTo(1.049, 1.051))
         assertThat(sdf.format(sheet[0, 3].toDate()), IS("2015/12/06 17:59:58"))
+        assertThat(sheet[0, 4].toBoolean(), IS(true))
 
         workbook.close()
     }

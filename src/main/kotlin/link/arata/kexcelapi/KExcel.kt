@@ -226,6 +226,7 @@ private fun Cell.setValue(value: Any) {
         is Int -> setCellValue(value.toDouble())
         is Double -> setCellValue(value)
         is Date -> setCellValue(value)
+        is Boolean -> setCellValue(value)
         else -> throw IllegalArgumentException("文字列か数値のみ対応しています")
     }
 }
