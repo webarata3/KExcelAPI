@@ -31,11 +31,6 @@ public class KExcel {
         }
 
         @JvmStatic
-        public fun close(workbook: Workbook) {
-            workbook.close()
-        }
-
-        @JvmStatic
         public fun write(workbook: Workbook, fileName: String) {
             var outputPath = Paths.get(fileName)
             try {
