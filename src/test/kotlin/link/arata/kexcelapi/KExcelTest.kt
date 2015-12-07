@@ -19,7 +19,9 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.hamcrest.Matchers.closeTo
 import org.junit.Assert.assertThat
 import org.junit.BeforeClass
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.ExpectedException
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.text.SimpleDateFormat
@@ -272,9 +274,53 @@ class KExcelTest() {
             assertThat(sheet["A5"].toBoolean(), IS(true))
         }
 
-
         Files.delete(outputPath)
         assertThat(Files.exists(outputPath), IS(false))
     }
 
+    @Rule
+    @JvmField
+    val thrown = ExpectedException.none()
+
+    @Test
+    fun 例外のテスト() {
+        thrown.expect(IllegalAccessException::class.java)
+        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
+            val sheet = workbook[0]
+            // あいうえおをそれぞれ、数値、日付、Booleanに
+            sheet["B2"].toInt()
+            sheet["B2"].toDouble()
+            sheet["B2"].toDate()
+            sheet["B2"].toBoolean()
+
+            // Booleanを数値、日付へ
+            sheet["F5"].toInt()
+            sheet["F5"].toDouble()
+            sheet["F5"].toDate()
+
+            // 日付をBooleaへ
+            sheet["E2"].toBoolean()
+        }
+    }
+
+    @Test
+    fun 計算後の例外のテスト() {
+        thrown.expect(IllegalAccessException::class.java)
+        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
+            val sheet = workbook[0]
+            // あいうえおをそれぞれ、数値、日付、Booleanに
+            sheet["J2"].toInt()
+            sheet["J2"].toDouble()
+            sheet["J2"].toDate()
+            sheet["J2"].toBoolean()
+
+            // Booleanを数値、日付へ
+            sheet["G5"].toInt()
+            sheet["G5"].toDouble()
+            sheet["G5"].toDate()
+
+            // 日付をBooleaへ
+            sheet["E7"].toBoolean()
+        }
+    }
 }
