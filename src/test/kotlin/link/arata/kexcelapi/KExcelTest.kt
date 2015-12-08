@@ -120,12 +120,16 @@ class KExcelTest() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook[0]
 
+            assertThat(sheet["B3"].toInt(), IS(456))
+            assertThat(sheet[1, 2].toInt(), IS(456))
             assertThat(sheet["C3"].toInt(), IS(123))
             assertThat(sheet[2, 2].toInt(), IS(123))
             assertThat(sheet["D3"].toInt(), IS(105))
             assertThat(sheet[3, 2].toInt(), IS(105))
             assertThat(sheet["G3"].toInt(), IS(369))
             assertThat(sheet[6, 2].toInt(), IS(369))
+            assertThat(sheet["J3"].toInt(), IS(456123))
+            assertThat(sheet[9, 2].toInt(), IS(456123))
 
             workbook.close()
         }
