@@ -148,6 +148,8 @@ class KExcelTest() {
             assertThat(sheet[3, 3].toDouble(), closeTo(192.220, 192.224))
             assertThat(sheet["G4"].toDouble(), closeTo(64.072, 64.076))
             assertThat(sheet[6, 3].toDouble(), closeTo(64.072, 64.076))
+            assertThat(sheet["J4"].toDouble(), closeTo(123123.454, 123123.458))
+            assertThat(sheet[9, 3].toDouble(), closeTo(123123.454, 123123.458))
 
             workbook.close()
         }
