@@ -140,6 +140,8 @@ class KExcelTest() {
         KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
             val sheet = workbook[0]
 
+            assertThat(sheet["B4"].toDouble(), closeTo(123.454, 123.458))
+            assertThat(sheet[1, 3].toDouble(), closeTo(123.454, 123.458))
             assertThat(sheet["C4"].toDouble(), IS(123.0))
             assertThat(sheet[2, 3].toDouble(), IS(123.0))
             assertThat(sheet["D4"].toDouble(), closeTo(192.220, 192.224))
