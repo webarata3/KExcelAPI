@@ -331,4 +331,28 @@ class KExcelTest() {
             sheet["E7"].toBoolean()
         }
     }
+
+    @Test
+    fun 既存ファイルの読み込みと書き込みファイル保存のテスト() {
+        KExcel.open("$BASE_DIR/book3.xlsx").use { workbook ->
+            val sheet = workbook[0]
+            sheet["A1"] = 100
+            sheet["A2"] = 3.44
+            sheet["A3"] = "あいうえお"
+
+            KExcel.write(workbook, "$BASE_DIR/book3.xlsx")
+
+            workbook.close()
+        }
+        KExcel.open("$BASE_DIR/book3.xlsx").use { workbook ->
+            val sheet = workbook[0]
+            assertThat(sheet["A1"].toInt(), IS(100))
+            assertThat(sheet["A2"].toDouble(), closeTo(3.43, 3.45))
+            assertThat(sheet["A3"].toStr(), IS("あいうえお"))
+
+            workbook.close()
+        }
+
+        Files.delete(Paths.get("$BASE_DIR/book3.xlsx"))
+    }
 }
