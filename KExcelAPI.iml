@@ -19,13 +19,13 @@
     <orderEntry type="library" scope="TEST" name="Gradle: junit:junit:4.12" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-library:1.3" level="project" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.hamcrest:hamcrest-core:1.3" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.0.0-beta-3594" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: org.jetbrains.kotlin:kotlin-runtime:1.0.0-beta-3594" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.apache.poi:poi-ooxml:3.13" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.apache.poi:poi:3.13" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.apache.poi:poi-ooxml-schemas:3.13" level="project" />
     <orderEntry type="library" exported="" name="Gradle: commons-codec:commons-codec:1.9" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.apache.xmlbeans:xmlbeans:2.6.0" level="project" />
     <orderEntry type="library" exported="" name="Gradle: stax:stax-api:1.0.1" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.0.0-beta-4583" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: org.jetbrains.kotlin:kotlin-runtime:1.0.0-beta-4583" level="project" />
   </component>
 </module>
