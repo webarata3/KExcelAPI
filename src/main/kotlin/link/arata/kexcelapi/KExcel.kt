@@ -31,15 +31,15 @@ import java.nio.file.Paths
 import java.util.*
 import java.util.regex.Pattern
 
-public class KExcel {
+class KExcel {
     companion object {
         @JvmStatic
-        public fun open(fileName: String): Workbook {
+        fun open(fileName: String): Workbook {
             return WorkbookFactory.create(FileInputStream(Paths.get(fileName).toFile()))
         }
 
         @JvmStatic
-        public fun write(workbook: Workbook, fileName: String) {
+        fun write(workbook: Workbook, fileName: String) {
             var outputPath = Paths.get(fileName)
             try {
                 Files.newOutputStream(outputPath).use {
@@ -51,7 +51,7 @@ public class KExcel {
         }
 
         @JvmStatic
-        public fun cellIndexToCellName(x: Int, y: Int): String {
+        fun cellIndexToCellName(x: Int, y: Int): String {
             var cellName = dec26(x, 0)
             return cellName + (y + 1)
         }
@@ -67,23 +67,23 @@ public class KExcel {
     }
 }
 
-public operator fun Workbook.get(n: Int): Sheet {
+operator fun Workbook.get(n: Int): Sheet {
     return this.getSheetAt(n)
 }
 
-public operator fun Workbook.get(name: String): Sheet {
+operator fun Workbook.get(name: String): Sheet {
     return this.getSheet(name)
 }
 
-public operator fun Sheet.get(n: Int): Row {
+operator fun Sheet.get(n: Int): Row {
     return getRow(n) ?: createRow(n)
 }
 
-public operator fun Row.get(n: Int): Cell {
+operator fun Row.get(n: Int): Cell {
     return getCell(n) ?: createCell(n, Cell.CELL_TYPE_BLANK)
 }
 
-public operator fun Sheet.get(x: Int, y: Int): Cell {
+operator fun Sheet.get(x: Int, y: Int): Cell {
     var row = this[y]
     return row[x]
 }
@@ -92,7 +92,7 @@ private val ORIGIN = 'A'.toInt()
 private val RADIX = 26
 
 // https://github.com/nobeans/gexcelapi/blob/master/src/main/groovy/org/jggug/kobo/gexcelapi/GExcel.groovy
-public operator fun Sheet.get(cellLabel: String): Cell {
+operator fun Sheet.get(cellLabel: String): Cell {
     val p1 = Pattern.compile("([a-zA-Z]+)([0-9]+)");
     val matcher = p1.matcher(cellLabel)
     matcher.find()
@@ -115,7 +115,7 @@ private fun normalizeNumericString(numeric: Double): String {
     }
 }
 
-public fun Cell.toStr(): String {
+fun Cell.toStr(): String {
     when (cellType) {
         Cell.CELL_TYPE_STRING -> return stringCellValue
         Cell.CELL_TYPE_NUMERIC -> return normalizeNumericString(numericCellValue)
@@ -136,7 +136,7 @@ public fun Cell.toStr(): String {
     }
 }
 
-public fun Cell.toInt(): Int {
+fun Cell.toInt(): Int {
     fun stringToInt(value: String): Int {
         try {
             // toIntだと44.5のような文字列を44に変換できないため、一度Dobuleに変換している
@@ -161,7 +161,7 @@ public fun Cell.toInt(): Int {
     }
 }
 
-public fun Cell.toDouble(): Double {
+fun Cell.toDouble(): Double {
     fun stringToDouble(value: String): Double {
         try {
             return value.toDouble()
@@ -185,7 +185,7 @@ public fun Cell.toDouble(): Double {
     }
 }
 
-public fun Cell.toBoolean(): Boolean {
+fun Cell.toBoolean(): Boolean {
     when (cellType) {
         Cell.CELL_TYPE_BOOLEAN -> return booleanCellValue
         Cell.CELL_TYPE_FORMULA -> {
@@ -199,7 +199,7 @@ public fun Cell.toBoolean(): Boolean {
     }
 }
 
-public fun Cell.toDate(): Date {
+fun Cell.toDate(): Date {
     when (cellType) {
         Cell.CELL_TYPE_NUMERIC -> return dateCellValue
         Cell.CELL_TYPE_FORMULA -> {
@@ -220,11 +220,11 @@ private fun getFormulaCellValue(cell: Cell): CellValue {
     return evaluator.evaluate(cell)
 }
 
-public operator fun Sheet.set(cellLabel: String, value: Any) {
+operator fun Sheet.set(cellLabel: String, value: Any) {
     this[cellLabel].setValue(value)
 }
 
-public operator fun Sheet.set(x: Int, y: Int, value: Any) {
+operator fun Sheet.set(x: Int, y: Int, value: Any) {
     this[x, y].setValue(value)
 }
 
