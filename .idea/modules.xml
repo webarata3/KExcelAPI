@@ -2,7 +2,9 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/KExcelAPI.iml" filepath="$PROJECT_DIR$/KExcelAPI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/KExcelAPI.iml" filepath="$PROJECT_DIR$/.idea/modules/KExcelAPI.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/KExcelAPI_main.iml" filepath="$PROJECT_DIR$/.idea/modules/KExcelAPI_main.iml" group="KExcelAPI" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/KExcelAPI_test.iml" filepath="$PROJECT_DIR$/.idea/modules/KExcelAPI_test.iml" group="KExcelAPI" />
     </modules>
   </component>
 </project>
