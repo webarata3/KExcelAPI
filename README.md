@@ -1,4 +1,4 @@
-# KExcelAPI [![Build Status](https://travis-ci.org/webarata/KExcelAPI.svg?branch=master)](https://travis-ci.org/webarata/KExcelAPI) [![Coverage Status](https://coveralls.io/repos/webarata/KExcelAPI/badge.svg?branch=master&service=github)](https://coveralls.io/github/webarata/KExcelAPI?branch=master)
+# KExcelAPI [![Build Status](https://travis-ci.org/webarata3/KExcelAPI.svg?branch=master)](https://travis-ci.org/webarata3/KExcelAPI) [![Coverage Status](https://coveralls.io/repos/webarata3/KExcelAPI/badge.svg?branch=master&service=github)](https://coveralls.io/github/webarata3/KExcelAPI?branch=master)
 
 Kotlin用のApache POIのラッパーです。皆さん大好きなExcelをできるだけ簡単にアクセスできるように考えています。
 
@@ -45,7 +45,7 @@ Mavenのリポジトリ（Gradleの設定）は次のとおりです。
 
 ```groovy
 repositories {
-    maven { url 'https://raw.githubusercontent.com/webarata/maven/master/repository' }
+    maven { url 'https://raw.githubusercontent.com/webarata3/maven/master/repository' }
 }
 
 dependencies {
