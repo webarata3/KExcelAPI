@@ -40,7 +40,7 @@ class KExcel {
 
         @JvmStatic
         fun write(workbook: Workbook, fileName: String) {
-            var outputPath = Paths.get(fileName)
+            val outputPath = Paths.get(fileName)
             try {
                 Files.newOutputStream(outputPath).use {
                     workbook.write(it)
@@ -52,7 +52,7 @@ class KExcel {
 
         @JvmStatic
         fun cellIndexToCellName(x: Int, y: Int): String {
-            var cellName = dec26(x, 0)
+            val cellName = dec26(x, 0)
             return cellName + (y + 1)
         }
 
@@ -84,7 +84,7 @@ operator fun Row.get(n: Int): Cell {
 }
 
 operator fun Sheet.get(x: Int, y: Int): Cell {
-    var row = this[y]
+    val row = this[y]
     return row[x]
 }
 
@@ -100,7 +100,7 @@ operator fun Sheet.get(cellLabel: String): Cell {
     var num = 0
     matcher.group(1).toUpperCase().reversed().forEachIndexed {
         i, c ->
-        var delta = c.toInt() - ORIGIN + 1
+        val delta = c.toInt() - ORIGIN + 1
         num += delta * Math.pow(RADIX.toDouble(), i.toDouble()).toInt()
     }
     num -= 1
