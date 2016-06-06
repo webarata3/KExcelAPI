@@ -55,4 +55,3 @@ dependencies {
 
 ## ライセンス
 MIT
-
