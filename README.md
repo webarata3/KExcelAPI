@@ -21,7 +21,7 @@ import link.arata.kexcelapi.*
 ```kotlin
 // 簡単にファイルオープン、クローズ
 KExcel.open("file/book1.xlsx").use { workbook ->
-    val sheet = workbook.getSheetAt(0)
+    val sheet = workbook[0]
 
     // セルの読み込み
     // セル名でのアクセス
