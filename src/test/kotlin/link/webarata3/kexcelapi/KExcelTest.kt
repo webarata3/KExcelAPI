@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 */
-package link.arata.kexcelapi
+package link.webarata3.kexcelapi
 
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.hamcrest.Matchers.closeTo
@@ -49,7 +49,7 @@ class KExcelTest() {
 
     @Test
     fun セルのラベルでの読み込みテスト() {
-        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
+        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
             val sheet = workbook[0]
 
             assertThat(sheet["B2"].toStr(), IS("あいうえお"))
@@ -63,7 +63,7 @@ class KExcelTest() {
 
     @Test
     fun セルのインデックスでの読み込みテスト() {
-        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
+        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
             val sheet = workbook["Sheet1"]
 
             assertThat(sheet[1, 1].toStr(), IS("あいうえお"))
@@ -77,7 +77,7 @@ class KExcelTest() {
 
     @Test
     fun 同じセルに違う方法で2回アクセス() {
-        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
+        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
             val sheet = workbook[0]
 
             assertThat(sheet["B2"].toStr(), IS("あいうえお"))
@@ -91,7 +91,7 @@ class KExcelTest() {
 
     @Test
     fun 文字列の取得テスト() {
-        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
+        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
             val sheet = workbook[0]
 
             assertThat(sheet["B2"].toStr(), IS("あいうえお"))
@@ -125,7 +125,7 @@ class KExcelTest() {
 
     @Test
     fun 整数の取得テスト() {
-        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
+        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
             val sheet = workbook[0]
 
             assertThat(sheet["B3"].toInt(), IS(456))
@@ -145,7 +145,7 @@ class KExcelTest() {
 
     @Test
     fun 小数の取得テスト() {
-        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
+        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
             val sheet = workbook[0]
 
             assertThat(sheet["B4"].toDouble(), closeTo(123.454, 123.458))
@@ -165,7 +165,7 @@ class KExcelTest() {
 
     @Test
     fun 論理値の取得テスト() {
-        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
+        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
             val sheet = workbook[0]
 
             assertThat(sheet["F5"].toBoolean(), IS(true))
@@ -179,7 +179,7 @@ class KExcelTest() {
 
     @Test
     fun 日付の取得テスト() {
-        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
+        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
             val sheet = workbook[0]
 
             val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm")
@@ -275,14 +275,14 @@ class KExcelTest() {
         assertThat(sdf.format(sheet["A4"].toDate()), IS("2015/12/06 17:59:58"))
         assertThat(sheet["A5"].toBoolean(), IS(true))
 
-        KExcel.write(workbook, "$BASE_DIR/book2.xlsx")
+        KExcel.write(workbook, "${BASE_DIR}/book2.xlsx")
 
         workbook.close()
 
-        val outputPath = Paths.get("$BASE_DIR/book2.xlsx")
+        val outputPath = Paths.get("${BASE_DIR}/book2.xlsx")
         assertThat(Files.exists(outputPath), IS(true))
 
-        KExcel.open("$BASE_DIR/book2.xlsx").use { workbook ->
+        KExcel.open("${BASE_DIR}/book2.xlsx").use { workbook ->
             assertThat(sheet["A1"].toInt(), IS(100))
             assertThat(sheet["A2"].toStr(), IS("あいうえお"))
             assertThat(sheet["A3"].toDouble(), closeTo(1.049, 1.051))
@@ -301,7 +301,7 @@ class KExcelTest() {
     @Test
     fun 例外のテスト() {
         thrown.expect(IllegalAccessException::class.java)
-        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
+        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
             val sheet = workbook[0]
             // あいうえおをそれぞれ、数値、日付、Booleanに
             sheet["B2"].toInt()
@@ -322,7 +322,7 @@ class KExcelTest() {
     @Test
     fun 計算後の例外のテスト() {
         thrown.expect(IllegalAccessException::class.java)
-        KExcel.open("$BASE_DIR/book1.xlsx").use { workbook ->
+        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
             val sheet = workbook[0]
             // あいうえおをそれぞれ、数値、日付、Booleanに
             sheet["J2"].toInt()
@@ -342,17 +342,17 @@ class KExcelTest() {
 
     @Test
     fun 既存ファイルの読み込みと書き込みファイル保存のテスト() {
-        KExcel.open("$BASE_DIR/book3.xlsx").use { workbook ->
+        KExcel.open("${BASE_DIR}/book3.xlsx").use { workbook ->
             val sheet = workbook[0]
             sheet["A1"] = 100
             sheet["A2"] = 3.44
             sheet["A3"] = "あいうえお"
 
-            KExcel.write(workbook, "$BASE_DIR/book3.xlsx")
+            KExcel.write(workbook, "${BASE_DIR}/book3.xlsx")
 
             workbook.close()
         }
-        KExcel.open("$BASE_DIR/book3.xlsx").use { workbook ->
+        KExcel.open("${BASE_DIR}/book3.xlsx").use { workbook ->
             val sheet = workbook[0]
             assertThat(sheet["A1"].toInt(), IS(100))
             assertThat(sheet["A2"].toDouble(), closeTo(3.43, 3.45))
@@ -361,6 +361,6 @@ class KExcelTest() {
             workbook.close()
         }
 
-        Files.delete(Paths.get("$BASE_DIR/book3.xlsx"))
+        Files.delete(Paths.get("${BASE_DIR}/book3.xlsx"))
     }
 }

@@ -10,9 +10,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.0.5-2" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.poi:poi-ooxml:3.13" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-runtime:1.0.2" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-runtime:1.0.5-2" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.poi:poi:3.13" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.poi:poi-ooxml-schemas:3.13" level="project" />
     <orderEntry type="library" name="Gradle: commons-codec:commons-codec:1.9" level="project" />

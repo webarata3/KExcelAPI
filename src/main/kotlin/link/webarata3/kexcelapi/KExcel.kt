@@ -21,7 +21,7 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
  */
-package link.arata.kexcelapi
+package link.webarata3.kexcelapi
 
 import org.apache.poi.ss.usermodel.*
 import java.io.FileInputStream
@@ -88,19 +88,18 @@ operator fun Sheet.get(x: Int, y: Int): Cell {
     return row[x]
 }
 
-private val ORIGIN = 'A'.toInt()
 private val RADIX = 26
 
 // https://github.com/nobeans/gexcelapi/blob/master/src/main/groovy/org/jggug/kobo/gexcelapi/GExcel.groovy
 operator fun Sheet.get(cellLabel: String): Cell {
-    val p1 = Pattern.compile("([a-zA-Z]+)([0-9]+)");
+    val p1 = Pattern.compile("([a-zA-Z]+)([0-9]+)")
     val matcher = p1.matcher(cellLabel)
     matcher.find()
 
     var num = 0
     matcher.group(1).toUpperCase().reversed().forEachIndexed {
         i, c ->
-        val delta = c.toInt() - ORIGIN + 1
+        val delta = c.toInt() - 'A'.toInt() + 1
         num += delta * Math.pow(RADIX.toDouble(), i.toDouble()).toInt()
     }
     num -= 1
