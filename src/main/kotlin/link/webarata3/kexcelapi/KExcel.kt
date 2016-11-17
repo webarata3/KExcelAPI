@@ -171,12 +171,12 @@ fun Cell.toDouble(): Double {
 
     when (cellType) {
         Cell.CELL_TYPE_STRING -> return stringToDouble(stringCellValue)
-        Cell.CELL_TYPE_NUMERIC -> return numericCellValue.toDouble()
+        Cell.CELL_TYPE_NUMERIC -> return numericCellValue
         Cell.CELL_TYPE_FORMULA -> {
             val cellValue = getFormulaCellValue(this)
             when (cellValue.cellType) {
                 Cell.CELL_TYPE_STRING -> return stringToDouble(cellValue.stringValue)
-                Cell.CELL_TYPE_NUMERIC -> return cellValue.numberValue.toDouble()
+                Cell.CELL_TYPE_NUMERIC -> return cellValue.numberValue
                 else -> throw IllegalAccessException("cellはDoubleに変換できません")
             }
         }
