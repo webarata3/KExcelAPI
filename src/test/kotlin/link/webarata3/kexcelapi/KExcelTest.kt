@@ -26,30 +26,41 @@ package link.webarata3.kexcelapi
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.hamcrest.Matchers.closeTo
 import org.junit.Assert.assertThat
-import org.junit.BeforeClass
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.ExpectedException
+import org.junit.rules.TemporaryFolder
+import java.io.File
 import java.nio.file.Files
 import java.nio.file.Paths
 import java.text.SimpleDateFormat
 import org.hamcrest.Matchers.`is` as IS
 
-class KExcelTest() {
-    companion object {
-        var BASE_DIR = ""
 
-        @JvmStatic
-        @BeforeClass
-        fun BeforeClass() {
-            val path = Paths.get(KExcelTest::class.java.getResource("book1.xlsx").toURI()).parent
-            BASE_DIR = path.toString()
-        }
+class KExcelTest {
+    @Rule
+    @JvmField
+    val tempFolder = TemporaryFolder()
+
+    lateinit var tempFile1: File
+    lateinit var tempFile2: File
+    lateinit var tempFile3: File
+
+    @Before
+    fun setUp() {
+        // 一時ファイルにファイルをコピーし、テストではそのファイルを使用する
+        tempFile1 = Paths.get(tempFolder.root.canonicalPath, "book1.xlsx").toFile()
+        tempFile2 = Paths.get(tempFolder.root.canonicalPath, "book2.xlsx").toFile()
+        Files.copy(KExcelTest::class.java.getResourceAsStream("book1.xlsx"), Paths.get(tempFile1.canonicalPath))
+        Files.copy(KExcelTest::class.java.getResourceAsStream("book2.xlsx"), Paths.get(tempFile2.canonicalPath))
+
+        tempFile3 = Paths.get(tempFolder.root.canonicalPath, "book3.xlsx").toFile()
     }
 
     @Test
     fun セルのラベルでの読み込みテスト() {
-        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
+        KExcel.open(tempFile1.canonicalPath).use { workbook ->
             val sheet = workbook[0]
 
             assertThat(sheet["B2"].toStr(), IS("あいうえお"))
@@ -63,7 +74,7 @@ class KExcelTest() {
 
     @Test
     fun セルのインデックスでの読み込みテスト() {
-        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
+        KExcel.open(tempFile1.canonicalPath).use { workbook ->
             val sheet = workbook["Sheet1"]
 
             assertThat(sheet[1, 1].toStr(), IS("あいうえお"))
@@ -77,7 +88,7 @@ class KExcelTest() {
 
     @Test
     fun 同じセルに違う方法で2回アクセス() {
-        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
+        KExcel.open(tempFile1.canonicalPath).use { workbook ->
             val sheet = workbook[0]
 
             assertThat(sheet["B2"].toStr(), IS("あいうえお"))
@@ -91,7 +102,7 @@ class KExcelTest() {
 
     @Test
     fun 文字列の取得テスト() {
-        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
+        KExcel.open(tempFile1.canonicalPath).use { workbook ->
             val sheet = workbook[0]
 
             assertThat(sheet["B2"].toStr(), IS("あいうえお"))
@@ -125,7 +136,7 @@ class KExcelTest() {
 
     @Test
     fun 整数の取得テスト() {
-        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
+        KExcel.open(tempFile1.canonicalPath).use { workbook ->
             val sheet = workbook[0]
 
             assertThat(sheet["B3"].toInt(), IS(456))
@@ -145,7 +156,7 @@ class KExcelTest() {
 
     @Test
     fun 小数の取得テスト() {
-        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
+        KExcel.open(tempFile1.canonicalPath).use { workbook ->
             val sheet = workbook[0]
 
             assertThat(sheet["B4"].toDouble(), closeTo(123.454, 123.458))
@@ -165,7 +176,7 @@ class KExcelTest() {
 
     @Test
     fun 論理値の取得テスト() {
-        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
+        KExcel.open(tempFile1.canonicalPath).use { workbook ->
             val sheet = workbook[0]
 
             assertThat(sheet["F5"].toBoolean(), IS(true))
@@ -179,7 +190,7 @@ class KExcelTest() {
 
     @Test
     fun 日付の取得テスト() {
-        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
+        KExcel.open(tempFile1.canonicalPath).use { workbook ->
             val sheet = workbook[0]
 
             val sdf = SimpleDateFormat("yyyy/MM/dd HH:mm")
@@ -244,16 +255,16 @@ class KExcelTest() {
 
     @Test
     fun セルのインデックスからセル名の変換テスト() {
-        assertThat(KExcel.cellIndexToCellName(0, 0), IS("A1"));
-        assertThat(KExcel.cellIndexToCellName(1, 0), IS("B1"));
-        assertThat(KExcel.cellIndexToCellName(2, 0), IS("C1"));
-        assertThat(KExcel.cellIndexToCellName(2, 1), IS("C2"));
-        assertThat(KExcel.cellIndexToCellName(25, 1), IS("Z2"));
-        assertThat(KExcel.cellIndexToCellName(26, 1), IS("AA2"));
-        assertThat(KExcel.cellIndexToCellName(27, 1), IS("AB2"));
-        assertThat(KExcel.cellIndexToCellName(255, 1), IS("IV2"));
-        assertThat(KExcel.cellIndexToCellName(702, 1), IS("AAA2"));
-        assertThat(KExcel.cellIndexToCellName(16383, 1), IS("XFD2"));
+        assertThat(KExcel.cellIndexToCellName(0, 0), IS("A1"))
+        assertThat(KExcel.cellIndexToCellName(1, 0), IS("B1"))
+        assertThat(KExcel.cellIndexToCellName(2, 0), IS("C1"))
+        assertThat(KExcel.cellIndexToCellName(2, 1), IS("C2"))
+        assertThat(KExcel.cellIndexToCellName(25, 1), IS("Z2"))
+        assertThat(KExcel.cellIndexToCellName(26, 1), IS("AA2"))
+        assertThat(KExcel.cellIndexToCellName(27, 1), IS("AB2"))
+        assertThat(KExcel.cellIndexToCellName(255, 1), IS("IV2"))
+        assertThat(KExcel.cellIndexToCellName(702, 1), IS("AAA2"))
+        assertThat(KExcel.cellIndexToCellName(16383, 1), IS("XFD2"))
     }
 
     @Test
@@ -275,33 +286,35 @@ class KExcelTest() {
         assertThat(sdf.format(sheet["A4"].toDate()), IS("2015/12/06 17:59:58"))
         assertThat(sheet["A5"].toBoolean(), IS(true))
 
-        KExcel.write(workbook, "${BASE_DIR}/book2.xlsx")
+        KExcel.write(workbook, tempFile3.canonicalPath)
 
         workbook.close()
 
-        val outputPath = Paths.get("${BASE_DIR}/book2.xlsx")
+        val outputPath = Paths.get(tempFile3.canonicalPath)
         assertThat(Files.exists(outputPath), IS(true))
 
-        KExcel.open("${BASE_DIR}/book2.xlsx").use { workbook ->
-            assertThat(sheet["A1"].toInt(), IS(100))
-            assertThat(sheet["A2"].toStr(), IS("あいうえお"))
-            assertThat(sheet["A3"].toDouble(), closeTo(1.049, 1.051))
-            assertThat(sdf.format(sheet["A4"].toDate()), IS("2015/12/06 17:59:58"))
-            assertThat(sheet["A5"].toBoolean(), IS(true))
+        KExcel.open(tempFile3.canonicalPath).use { workbook ->
+            val outSheet = workbook[0]
+
+            assertThat(outSheet["A1"].toInt(), IS(100))
+            assertThat(outSheet["A2"].toStr(), IS("あいうえお"))
+            assertThat(outSheet["A3"].toDouble(), closeTo(1.049, 1.051))
+            assertThat(sdf.format(outSheet["A4"].toDate()), IS("2015/12/06 17:59:58"))
+            assertThat(outSheet["A5"].toBoolean(), IS(true))
         }
 
-        Files.delete(outputPath)
+        outputPath.toFile().delete()
         assertThat(Files.exists(outputPath), IS(false))
     }
 
     @Rule
     @JvmField
-    val thrown = ExpectedException.none()
+    val thrown: ExpectedException = ExpectedException.none()
 
     @Test
     fun 例外のテスト() {
         thrown.expect(IllegalAccessException::class.java)
-        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
+        KExcel.open(tempFile1.canonicalPath).use { workbook ->
             val sheet = workbook[0]
             // あいうえおをそれぞれ、数値、日付、Booleanに
             sheet["B2"].toInt()
@@ -322,7 +335,7 @@ class KExcelTest() {
     @Test
     fun 計算後の例外のテスト() {
         thrown.expect(IllegalAccessException::class.java)
-        KExcel.open("${BASE_DIR}/book1.xlsx").use { workbook ->
+        KExcel.open(tempFile2.canonicalPath).use { workbook ->
             val sheet = workbook[0]
             // あいうえおをそれぞれ、数値、日付、Booleanに
             sheet["J2"].toInt()
@@ -342,17 +355,17 @@ class KExcelTest() {
 
     @Test
     fun 既存ファイルの読み込みと書き込みファイル保存のテスト() {
-        KExcel.open("${BASE_DIR}/book3.xlsx").use { workbook ->
+        KExcel.open(tempFile2.canonicalPath).use { workbook ->
             val sheet = workbook[0]
             sheet["A1"] = 100
             sheet["A2"] = 3.44
             sheet["A3"] = "あいうえお"
 
-            KExcel.write(workbook, "${BASE_DIR}/book3.xlsx")
+            KExcel.write(workbook, tempFile2.canonicalPath)
 
             workbook.close()
         }
-        KExcel.open("${BASE_DIR}/book3.xlsx").use { workbook ->
+        KExcel.open(tempFile2.canonicalPath).use { workbook ->
             val sheet = workbook[0]
             assertThat(sheet["A1"].toInt(), IS(100))
             assertThat(sheet["A2"].toDouble(), closeTo(3.43, 3.45))
@@ -361,6 +374,6 @@ class KExcelTest() {
             workbook.close()
         }
 
-        Files.delete(Paths.get("${BASE_DIR}/book3.xlsx"))
+        Files.delete(Paths.get(tempFile2.canonicalPath))
     }
 }
