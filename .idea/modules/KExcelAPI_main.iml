@@ -5,9 +5,15 @@
       <configuration version="2" platform="JVM 1.6" useProjectSettings="false">
         <compilerSettings />
         <compilerArguments>
+          <option name="destination" value="$MODULE_DIR$/../../build/kotlin-classes/main" />
+          <option name="classpath" value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.jetbrains.kotlin/kotlin-stdlib/1.1.2-2/2b22828f027e103dcd45f3aa240338bfdb53d16b/kotlin-stdlib-1.1.2-2.jar:/Users/arata/.gradle/caches/modules-2/files-2.1/org.apache.poi/poi-ooxml/3.16/76e20fe22404cc4da55ddfdaaaadee32bbfa3bdd/poi-ooxml-3.16.jar:/Users/arata/.gradle/caches/modules-2/files-2.1/org.jetbrains/annotations/13.0/919f0dfe192fb4e063e7dacadee7f8bb9a2672a9/annotations-13.0.jar:/Users/arata/.gradle/caches/modules-2/files-2.1/org.apache.poi/poi/3.16/ad21c123ee5d6b5b2a8f0d4ed23b3ffe6759a889/poi-3.16.jar:/Users/arata/.gradle/caches/modules-2/files-2.1/org.apache.poi/poi-ooxml-schemas/3.16/9828a49307fc6bebfd42185b677d88b6e4994c63/poi-ooxml-schemas-3.16.jar:/Users/arata/.gradle/caches/modules-2/files-2.1/com.github.virtuald/curvesapi/1.04/3386abf821719bc89c7685f9eaafaf4a842f0199/curvesapi-1.04.jar:/Users/arata/.gradle/caches/modules-2/files-2.1/commons-codec/commons-codec/1.10/4b95f4897fa13f2cd904aee711aeafc0c5295cd8/commons-codec-1.10.jar:/Users/arata/.gradle/caches/modules-2/files-2.1/org.apache.commons/commons-collections4/4.1/a4cf4688fe1c7e3a63aa636cc96d013af537768e/commons-collections4-4.1.jar:/Users/arata/.gradle/caches/modules-2/files-2.1/org.apache.xmlbeans/xmlbeans/2.6.0/29e80d2dd51f9dcdef8f9ffaee0d4dc1c9bbfc87/xmlbeans-2.6.0.jar:/Users/arata/.gradle/caches/modules-2/files-2.1/stax/stax-api/1.0.1/49c100caf72d658aca8e58bd74a4ba90fa2b0d70/stax-api-1.0.1.jar" />
+          <option name="noStdlib" value="true" />
+          <option name="noReflect" value="true" />
+          <option name="moduleName" value="KExcelAPI_main" />
           <option name="jvmTarget" value="1.6" />
-          <option name="languageVersion" value="1.0" />
-          <option name="apiVersion" value="1.0" />
+          <option name="addCompilerBuiltIns" value="true" />
+          <option name="languageVersion" value="1.1" />
+          <option name="apiVersion" value="1.1" />
           <option name="pluginClasspaths">
             <array />
           </option>
@@ -29,12 +35,14 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.0.5-2" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.poi:poi-ooxml:3.13" level="project" />
-    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-runtime:1.0.5-2" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.poi:poi:3.13" level="project" />
-    <orderEntry type="library" name="Gradle: org.apache.poi:poi-ooxml-schemas:3.13" level="project" />
-    <orderEntry type="library" name="Gradle: commons-codec:commons-codec:1.9" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.1.2-2" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.poi:poi-ooxml:3.16" level="project" />
+    <orderEntry type="library" name="Gradle: org.jetbrains:annotations:13.0" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.poi:poi:3.16" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.poi:poi-ooxml-schemas:3.16" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.virtuald:curvesapi:1.04" level="project" />
+    <orderEntry type="library" name="Gradle: commons-codec:commons-codec:1.10" level="project" />
+    <orderEntry type="library" name="Gradle: org.apache.commons:commons-collections4:4.1" level="project" />
     <orderEntry type="library" name="Gradle: org.apache.xmlbeans:xmlbeans:2.6.0" level="project" />
     <orderEntry type="library" name="Gradle: stax:stax-api:1.0.1" level="project" />
   </component>
