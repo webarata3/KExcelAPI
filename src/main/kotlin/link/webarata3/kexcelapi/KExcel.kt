@@ -80,7 +80,7 @@ operator fun Sheet.get(n: Int): Row {
 }
 
 operator fun Row.get(n: Int): Cell {
-    return getCell(n) ?: createCell(n, Cell.CELL_TYPE_BLANK)
+    return getCell(n) ?: createCell(n, CellType.BLANK)
 }
 
 operator fun Sheet.get(x: Int, y: Int): Cell {
@@ -115,18 +115,18 @@ private fun normalizeNumericString(numeric: Double): String {
 }
 
 fun Cell.toStr(): String {
-    when (cellType) {
-        Cell.CELL_TYPE_STRING -> return stringCellValue
-        Cell.CELL_TYPE_NUMERIC -> return normalizeNumericString(numericCellValue)
-        Cell.CELL_TYPE_BOOLEAN -> return booleanCellValue.toString()
-        Cell.CELL_TYPE_BLANK -> return ""
-        Cell.CELL_TYPE_FORMULA -> {
+    when (cellTypeEnum) {
+        CellType.STRING -> return stringCellValue
+        CellType.NUMERIC -> return normalizeNumericString(numericCellValue)
+        CellType.BOOLEAN-> return booleanCellValue.toString()
+        CellType.BLANK -> return ""
+        CellType.FORMULA -> {
             val cellValue = getFormulaCellValue(this)
-            when (cellValue.cellType) {
-                Cell.CELL_TYPE_STRING -> return cellValue.stringValue
-                Cell.CELL_TYPE_NUMERIC -> return normalizeNumericString(cellValue.numberValue)
-                Cell.CELL_TYPE_BOOLEAN -> return cellValue.booleanValue.toString()
-                Cell.CELL_TYPE_BLANK -> return ""
+            when (cellValue.cellTypeEnum) {
+                CellType.STRING -> return cellValue.stringValue
+                CellType.NUMERIC -> return normalizeNumericString(cellValue.numberValue)
+                CellType.BOOLEAN -> return cellValue.booleanValue.toString()
+                CellType.BLANK-> return ""
                 else -> throw IllegalAccessException("cellはStringに変換できません")
             }
 
@@ -145,14 +145,14 @@ fun Cell.toInt(): Int {
         }
     }
 
-    when (cellType) {
-        Cell.CELL_TYPE_STRING -> return stringToInt(stringCellValue)
-        Cell.CELL_TYPE_NUMERIC -> return numericCellValue.toInt()
-        Cell.CELL_TYPE_FORMULA -> {
+    when (cellTypeEnum) {
+        CellType.STRING -> return stringToInt(stringCellValue)
+        CellType.NUMERIC -> return numericCellValue.toInt()
+        CellType.FORMULA -> {
             val cellValue = getFormulaCellValue(this)
-            when (cellValue.cellType) {
-                Cell.CELL_TYPE_STRING -> return stringToInt(cellValue.stringValue)
-                Cell.CELL_TYPE_NUMERIC -> return cellValue.numberValue.toInt()
+            when (cellValue.cellTypeEnum) {
+                CellType.STRING -> return stringToInt(cellValue.stringValue)
+                CellType.NUMERIC -> return cellValue.numberValue.toInt()
                 else -> throw IllegalAccessException("cellはIntに変換できません")
             }
         }
@@ -169,14 +169,14 @@ fun Cell.toDouble(): Double {
         }
     }
 
-    when (cellType) {
-        Cell.CELL_TYPE_STRING -> return stringToDouble(stringCellValue)
-        Cell.CELL_TYPE_NUMERIC -> return numericCellValue
-        Cell.CELL_TYPE_FORMULA -> {
+    when (cellTypeEnum) {
+        CellType.STRING -> return stringToDouble(stringCellValue)
+        CellType.NUMERIC -> return numericCellValue
+        CellType.FORMULA -> {
             val cellValue = getFormulaCellValue(this)
-            when (cellValue.cellType) {
-                Cell.CELL_TYPE_STRING -> return stringToDouble(cellValue.stringValue)
-                Cell.CELL_TYPE_NUMERIC -> return cellValue.numberValue
+            when (cellValue.cellTypeEnum) {
+                CellType.STRING -> return stringToDouble(cellValue.stringValue)
+                CellType.NUMERIC -> return cellValue.numberValue
                 else -> throw IllegalAccessException("cellはDoubleに変換できません")
             }
         }
@@ -185,12 +185,12 @@ fun Cell.toDouble(): Double {
 }
 
 fun Cell.toBoolean(): Boolean {
-    when (cellType) {
-        Cell.CELL_TYPE_BOOLEAN -> return booleanCellValue
-        Cell.CELL_TYPE_FORMULA -> {
+    when (cellTypeEnum) {
+        CellType.BOOLEAN -> return booleanCellValue
+        CellType.FORMULA -> {
             val cellValue = getFormulaCellValue(this)
-            when (cellValue.cellType) {
-                Cell.CELL_TYPE_BOOLEAN -> return cellValue.booleanValue
+            when (cellValue.cellTypeEnum) {
+                CellType.BOOLEAN -> return cellValue.booleanValue
                 else -> throw IllegalAccessException("cellはBooleanに変換できません")
             }
         }
@@ -199,12 +199,12 @@ fun Cell.toBoolean(): Boolean {
 }
 
 fun Cell.toDate(): Date {
-    when (cellType) {
-        Cell.CELL_TYPE_NUMERIC -> return dateCellValue
-        Cell.CELL_TYPE_FORMULA -> {
+    when (cellTypeEnum) {
+        CellType.NUMERIC -> return dateCellValue
+        CellType.FORMULA -> {
             val cellValue = getFormulaCellValue(this)
-            when (cellValue.cellType) {
-                Cell.CELL_TYPE_NUMERIC -> return dateCellValue
+            when (cellValue.cellTypeEnum) {
+                CellType.NUMERIC -> return dateCellValue
                 else -> throw IllegalAccessException("cellはDeteに変換できません")
             }
         }
