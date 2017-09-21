@@ -52,6 +52,8 @@ class KExcel {
 
         @JvmStatic
         fun cellIndexToCellName(x: Int, y: Int): String {
+            if (x < 0) throw IllegalArgumentException("xは0以上でなければなりません: " + x)
+            if (y < 0) throw IllegalArgumentException("yは0以上でなければなりません: " + y)
             val cellName = dec26(x, 0)
             return cellName + (y + 1)
         }
@@ -115,87 +117,24 @@ private fun normalizeNumericString(numeric: Double): String {
 }
 
 fun Cell.toStr(): String {
-    when (cellTypeEnum) {
-        CellType.STRING -> return stringCellValue
-        CellType.NUMERIC -> return normalizeNumericString(numericCellValue)
-        CellType.BOOLEAN-> return booleanCellValue.toString()
-        CellType.BLANK -> return ""
-        CellType.FORMULA -> {
-            val cellValue = getFormulaCellValue(this)
-            when (cellValue.cellTypeEnum) {
-                CellType.STRING -> return cellValue.stringValue
-                CellType.NUMERIC -> return normalizeNumericString(cellValue.numberValue)
-                CellType.BOOLEAN -> return cellValue.booleanValue.toString()
-                CellType.BLANK-> return ""
-                else -> throw IllegalAccessException("cellはStringに変換できません")
-            }
-
-        }
-        else -> throw IllegalAccessException("cellはStringに変換できません")
-    }
+    val cellProxy = CellProxy(this)
+    return cellProxy.toStr()
 }
 
 fun Cell.toInt(): Int {
-    fun stringToInt(value: String): Int {
-        try {
-            // toIntだと44.5のような文字列を44に変換できないため、一度Dobuleに変換している
-            return value.toDouble().toInt()
-        } catch (e: NumberFormatException) {
-            throw IllegalAccessException("cellはIntに変換できません")
-        }
-    }
-
-    when (cellTypeEnum) {
-        CellType.STRING -> return stringToInt(stringCellValue)
-        CellType.NUMERIC -> return numericCellValue.toInt()
-        CellType.FORMULA -> {
-            val cellValue = getFormulaCellValue(this)
-            when (cellValue.cellTypeEnum) {
-                CellType.STRING -> return stringToInt(cellValue.stringValue)
-                CellType.NUMERIC -> return cellValue.numberValue.toInt()
-                else -> throw IllegalAccessException("cellはIntに変換できません")
-            }
-        }
-        else -> throw IllegalAccessException("cellはIntに変換できません")
-    }
+    val cellProxy = CellProxy(this)
+    return cellProxy.toInt()
 }
 
 fun Cell.toDouble(): Double {
-    fun stringToDouble(value: String): Double {
-        try {
-            return value.toDouble()
-        } catch (e: NumberFormatException) {
-            throw IllegalAccessException("cellはDoubleに変換できません")
-        }
-    }
-
-    when (cellTypeEnum) {
-        CellType.STRING -> return stringToDouble(stringCellValue)
-        CellType.NUMERIC -> return numericCellValue
-        CellType.FORMULA -> {
-            val cellValue = getFormulaCellValue(this)
-            when (cellValue.cellTypeEnum) {
-                CellType.STRING -> return stringToDouble(cellValue.stringValue)
-                CellType.NUMERIC -> return cellValue.numberValue
-                else -> throw IllegalAccessException("cellはDoubleに変換できません")
-            }
-        }
-        else -> throw IllegalAccessException("cellはDoubleに変換できません")
-    }
+    val cellProxy = CellProxy(this)
+    return cellProxy.toDouble()
 }
 
 fun Cell.toBoolean(): Boolean {
-    when (cellTypeEnum) {
-        CellType.BOOLEAN -> return booleanCellValue
-        CellType.FORMULA -> {
-            val cellValue = getFormulaCellValue(this)
-            when (cellValue.cellTypeEnum) {
-                CellType.BOOLEAN -> return cellValue.booleanValue
-                else -> throw IllegalAccessException("cellはBooleanに変換できません")
-            }
-        }
-        else -> throw IllegalAccessException("cellはBooleanに変換できません")
-    }
+    val cellProxy = CellProxy(this)
+    return cellProxy.toBoolean()
+
 }
 
 fun Cell.toDate(): Date {
