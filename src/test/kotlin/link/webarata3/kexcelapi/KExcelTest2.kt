@@ -372,4 +372,42 @@ class KExcelTest2 {
             )
         }
     }
+
+    @RunWith(Theories::class)
+    class 異常系_toBoolean {
+        @Rule
+        @JvmField
+        val tempFolder = TemporaryFolder()
+
+        @Rule
+        @JvmField
+        val thrown = ExpectedException.none()
+
+        class Fixture(val cellLabel: String) {
+            override fun toString(): String = "Fixture{cellLabel=$cellLabel}"
+        }
+
+        @Theory
+        fun test(fixture: Fixture) {
+            val file = TestUtil.getTempWorkbookFile(tempFolder, "book1.xlsx")
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+
+                thrown.expect(IllegalAccessException::class.java)
+                sheet[fixture.cellLabel].toBoolean()
+            }
+        }
+
+        companion object {
+            @DataPoints
+            @JvmField
+            val PARAMs = arrayOf(
+                Fixture("B5"),
+                Fixture("C5"),
+                Fixture("D5"),
+                Fixture("E5"),
+                Fixture("K5")
+            )
+        }
+    }
 }
