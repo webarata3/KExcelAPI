@@ -51,9 +51,9 @@ class KExcel {
         }
 
         @JvmStatic
-        fun cellIndexToCellName(x: Int, y: Int): String {
-            if (x < 0) throw IllegalArgumentException("xは0以上でなければなりません: " + x)
-            if (y < 0) throw IllegalArgumentException("yは0以上でなければなりません: " + y)
+        fun cellIndexToCellLabel(x: Int, y: Int): String {
+            require(x >= 0, {"xは0以上でなければなりません"})
+            require(y >= 0, {"yは0以上でなければなりません"})
             val cellName = dec26(x, 0)
             return cellName + (y + 1)
         }
@@ -116,10 +116,7 @@ private fun normalizeNumericString(numeric: Double): String {
     }
 }
 
-fun Cell.toStr(): String {
-    val cellProxy = CellProxy(this)
-    return cellProxy.toStr()
-}
+fun Cell.toStr(): String = CellProxy(this).toStr()
 
 fun Cell.toInt(): Int {
     val cellProxy = CellProxy(this)

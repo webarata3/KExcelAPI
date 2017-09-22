@@ -37,7 +37,6 @@ import java.nio.file.Paths
 import java.text.SimpleDateFormat
 import org.hamcrest.Matchers.`is` as IS
 
-
 class KExcelTest {
     @Rule
     @JvmField
@@ -255,16 +254,16 @@ class KExcelTest {
 
     @Test
     fun セルのインデックスからセル名の変換テスト() {
-        assertThat(KExcel.cellIndexToCellName(0, 0), IS("A1"))
-        assertThat(KExcel.cellIndexToCellName(1, 0), IS("B1"))
-        assertThat(KExcel.cellIndexToCellName(2, 0), IS("C1"))
-        assertThat(KExcel.cellIndexToCellName(2, 1), IS("C2"))
-        assertThat(KExcel.cellIndexToCellName(25, 1), IS("Z2"))
-        assertThat(KExcel.cellIndexToCellName(26, 1), IS("AA2"))
-        assertThat(KExcel.cellIndexToCellName(27, 1), IS("AB2"))
-        assertThat(KExcel.cellIndexToCellName(255, 1), IS("IV2"))
-        assertThat(KExcel.cellIndexToCellName(702, 1), IS("AAA2"))
-        assertThat(KExcel.cellIndexToCellName(16383, 1), IS("XFD2"))
+        assertThat(KExcel.cellIndexToCellLabel(0, 0), IS("A1"))
+        assertThat(KExcel.cellIndexToCellLabel(1, 0), IS("B1"))
+        assertThat(KExcel.cellIndexToCellLabel(2, 0), IS("C1"))
+        assertThat(KExcel.cellIndexToCellLabel(2, 1), IS("C2"))
+        assertThat(KExcel.cellIndexToCellLabel(25, 1), IS("Z2"))
+        assertThat(KExcel.cellIndexToCellLabel(26, 1), IS("AA2"))
+        assertThat(KExcel.cellIndexToCellLabel(27, 1), IS("AB2"))
+        assertThat(KExcel.cellIndexToCellLabel(255, 1), IS("IV2"))
+        assertThat(KExcel.cellIndexToCellLabel(702, 1), IS("AAA2"))
+        assertThat(KExcel.cellIndexToCellLabel(16383, 1), IS("XFD2"))
     }
 
     @Test
