@@ -27,6 +27,7 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook
 import org.hamcrest.Matchers.closeTo
 import org.junit.Assert.assertThat
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.ExpectedException
@@ -37,6 +38,7 @@ import java.nio.file.Paths
 import java.text.SimpleDateFormat
 import org.hamcrest.Matchers.`is` as IS
 
+@Ignore
 class KExcelTest {
     @Rule
     @JvmField
