@@ -341,4 +341,35 @@ class KExcelTest2 {
             )
         }
     }
+
+    @RunWith(Theories::class)
+    class 正常系_toBoolean {
+        @Rule
+        @JvmField
+        val tempFolder = TemporaryFolder()
+
+        class Fixture(val cellLabel: String, val expected: Boolean) {
+            override fun toString(): String = "Fixture{cellLabel=$cellLabel, expected=$expected}"
+        }
+
+        @Theory
+        @Throws(Exception::class)
+        fun test(fixture: Fixture) {
+            val file = TestUtil.getTempWorkbookFile(tempFolder, "book1.xlsx")
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+
+                assertThat(sheet[fixture.cellLabel].toBoolean(), `is`(fixture.expected))
+            }
+        }
+
+        companion object {
+            @DataPoints
+            @JvmField
+            val PARAMs = arrayOf(
+                Fixture("F5", true),
+                Fixture("G5", false)
+            )
+        }
+    }
 }
