@@ -118,21 +118,11 @@ private fun normalizeNumericString(numeric: Double): String {
 
 fun Cell.toStr(): String = CellProxy(this).toStr()
 
-fun Cell.toInt(): Int {
-    val cellProxy = CellProxy(this)
-    return cellProxy.toInt()
-}
+fun Cell.toInt(): Int = CellProxy(this).toInt()
 
-fun Cell.toDouble(): Double {
-    val cellProxy = CellProxy(this)
-    return cellProxy.toDouble()
-}
+fun Cell.toDouble(): Double = CellProxy(this).toDouble()
 
-fun Cell.toBoolean(): Boolean {
-    val cellProxy = CellProxy(this)
-    return cellProxy.toBoolean()
-
-}
+fun Cell.toBoolean(): Boolean = CellProxy(this).toBoolean()
 
 fun Cell.toDate(): Date {
     when (cellTypeEnum) {
