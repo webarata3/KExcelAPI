@@ -16,7 +16,7 @@ object TestUtil {
     }
 
     fun getDateTime(year: Int, month: Int, dayOfMonth: Int,
-                hour: Int, minute: Int, second: Int): Date {
+                    hour: Int, minute: Int, second: Int): Date {
         val cal = Calendar.getInstance()
 
         cal.set(Calendar.YEAR, year)
@@ -32,5 +32,9 @@ object TestUtil {
 
     fun getDate(year: Int, month: Int, dayOfMonth: Int): Date {
         return getDateTime(year, month, dayOfMonth, 0, 0, 0)
+    }
+
+    fun getTime(hour: Int, minute: Int, second: Int): Date {
+        return getDateTime(1899, 12, 31, hour, minute, second)
     }
 }
