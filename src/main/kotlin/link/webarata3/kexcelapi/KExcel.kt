@@ -31,6 +31,8 @@ import java.nio.file.Paths
 import java.util.*
 import java.util.regex.Pattern
 
+
+
 class KExcel {
     companion object {
         @JvmStatic
@@ -146,8 +148,16 @@ private fun Cell.setValue(value: Any) {
         is String -> setCellValue(value)
         is Int -> setCellValue(value.toDouble())
         is Double -> setCellValue(value)
-        is Date -> setCellValue(value)
         is Boolean -> setCellValue(value)
+        is Date -> {
+            setCellValue(value)
+            val wb = sheet.workbook
+            val createHelper = wb.getCreationHelper()
+            val cellStyle = wb.createCellStyle()
+            val style = createHelper.createDataFormat().getFormat("yyyy/m/d")
+            cellStyle.setDataFormat(style)
+            setCellStyle(cellStyle)
+        }
         else -> throw IllegalArgumentException("文字列か数値のみ対応しています")
     }
 }

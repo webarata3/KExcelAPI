@@ -12,6 +12,7 @@ import org.junit.experimental.theories.Theory
 import org.junit.rules.ExpectedException
 import org.junit.rules.TemporaryFolder
 import org.junit.runner.RunWith
+import java.io.File
 import java.io.FileNotFoundException
 import java.util.*
 
@@ -41,13 +42,11 @@ class KExcelTest2 {
 
     @RunWith(Theories::class)
     class 正常系_cellIndexToCellLabelTest {
-        class Fixture(val x: Int, val y: Int, val cellLabel: String) {
-            override fun toString(): String = "Fixture{x=$x, y=$y, cellLabel=$cellLabel}"
-        }
+        data class Fixture(val x: Int, val y: Int, val cellLabel: String)
 
         @Theory
         fun test(fixture: Fixture) {
-            assertThat(fixture.toString(), KExcel.cellIndexToCellLabel(fixture.x, fixture.y), `is`(fixture.cellLabel))
+            assertThat(KExcel.cellIndexToCellLabel(fixture.x, fixture.y), `is`(fixture.cellLabel))
         }
 
         companion object {
@@ -70,9 +69,7 @@ class KExcelTest2 {
         @JvmField
         val tempFolder = TemporaryFolder()
 
-        class Fixture(val cellLabel: String, val expected: String) {
-            override fun toString(): String = "Fixture{cellLabel=$cellLabel, expected=$expected}"
-        }
+        data class Fixture(val cellLabel: String, val expected: String)
 
         @Theory
         fun test(fixture: Fixture) {
@@ -102,9 +99,7 @@ class KExcelTest2 {
         @JvmField
         val tempFolder = TemporaryFolder()
 
-        class Fixture(val x: Int, val y: Int, val expected: String) {
-            override fun toString(): String = "Fixture{x=$x, y=$y, expected=$expected}"
-        }
+        data class Fixture(val x: Int, val y: Int, val expected: String)
 
         @Theory
         fun test(fixture: Fixture) {
@@ -134,9 +129,7 @@ class KExcelTest2 {
         @JvmField
         val tempFolder = TemporaryFolder()
 
-        class Fixture(val cellLabel: String, val expected: String) {
-            override fun toString(): String = "Fixture{cellLabel=$cellLabel, expected=$expected}"
-        }
+        data class Fixture(val cellLabel: String, val expected: String)
 
         @Theory
         fun test(fixture: Fixture) {
@@ -174,9 +167,7 @@ class KExcelTest2 {
         @JvmField
         val thrown = ExpectedException.none()
 
-        class Fixture(val cellLabel: String) {
-            override fun toString(): String = "Fixture{cellLabel=$cellLabel}"
-        }
+        data class Fixture(val cellLabel: String)
 
         @Theory
         fun test(fixture: Fixture) {
@@ -204,9 +195,7 @@ class KExcelTest2 {
         @JvmField
         val tempFolder = TemporaryFolder()
 
-        class Fixture(val cellLabel: String, val expected: Int) {
-            override fun toString(): String = "Fixture{cellLabel=$cellLabel, expected=$expected}"
-        }
+        data class Fixture(val cellLabel: String, val expected: Int)
 
         @Theory
         fun test(fixture: Fixture) {
@@ -241,9 +230,7 @@ class KExcelTest2 {
         @JvmField
         val thrown = ExpectedException.none()
 
-        class Fixture(val cellLabel: String) {
-            override fun toString(): String = "Fixture{cellLabel=$cellLabel}"
-        }
+        data class Fixture(val cellLabel: String)
 
         @Theory
         fun test(fixture: Fixture) {
@@ -276,9 +263,7 @@ class KExcelTest2 {
         @JvmField
         val tempFolder = TemporaryFolder()
 
-        class Fixture(val cellLabel: String, val expected: Double) {
-            override fun toString(): String = "Fixture{cellLabel=$cellLabel, expected=$expected}"
-        }
+        data class Fixture(val cellLabel: String, val expected: Double)
 
         @Theory
         @Throws(Exception::class)
@@ -314,9 +299,7 @@ class KExcelTest2 {
         @JvmField
         val thrown = ExpectedException.none()
 
-        class Fixture(val cellLabel: String) {
-            override fun toString(): String = "Fixture{cellLabel=$cellLabel}"
-        }
+        data class Fixture(val cellLabel: String)
 
         @Theory
         fun test(fixture: Fixture) {
@@ -349,9 +332,7 @@ class KExcelTest2 {
         @JvmField
         val tempFolder = TemporaryFolder()
 
-        class Fixture(val cellLabel: String, val expected: Boolean) {
-            override fun toString(): String = "Fixture{cellLabel=$cellLabel, expected=$expected}"
-        }
+        data class Fixture(val cellLabel: String, val expected: Boolean)
 
         @Theory
         @Throws(Exception::class)
@@ -384,9 +365,7 @@ class KExcelTest2 {
         @JvmField
         val thrown = ExpectedException.none()
 
-        class Fixture(val cellLabel: String) {
-            override fun toString(): String = "Fixture{cellLabel=$cellLabel}"
-        }
+        data class Fixture(val cellLabel: String)
 
         @Theory
         fun test(fixture: Fixture) {
@@ -418,9 +397,7 @@ class KExcelTest2 {
         @JvmField
         val tempFolder = TemporaryFolder()
 
-        class Fixture(val cellLabel: String, val expected: Date) {
-            override fun toString(): String = "Fixture{cellLabel=$cellLabel, expected=$expected}"
-        }
+        data class Fixture(val cellLabel: String, val expected: Date)
 
         @Theory
         @Throws(Exception::class)
@@ -453,9 +430,7 @@ class KExcelTest2 {
         @JvmField
         val thrown = ExpectedException.none()
 
-        class Fixture(val cellLabel: String) {
-            override fun toString(): String = "Fixture{cellLabel=$cellLabel}"
-        }
+        data class Fixture(val cellLabel: String)
 
         @Theory
         fun test(fixture: Fixture) {
@@ -491,9 +466,7 @@ class KExcelTest2 {
         @JvmField
         val tempFolder = TemporaryFolder()
 
-        class Fixture(val cellLabel: String, val expected: Date) {
-            override fun toString(): String = "Fixture{cellLabel=$cellLabel, expected=$expected}"
-        }
+        data class Fixture(val cellLabel: String, val expected: Date)
 
         @Theory
         @Throws(Exception::class)
@@ -526,9 +499,7 @@ class KExcelTest2 {
         @JvmField
         val thrown = ExpectedException.none()
 
-        class Fixture(val cellLabel: String) {
-            override fun toString(): String = "Fixture{cellLabel=$cellLabel}"
-        }
+        data class Fixture(val cellLabel: String)
 
         @Theory
         fun test(fixture: Fixture) {
@@ -564,9 +535,7 @@ class KExcelTest2 {
         @JvmField
         val tempFolder = TemporaryFolder()
 
-        class Fixture(val cellLabel: String, val expected: Date) {
-            override fun toString(): String = "Fixture{cellLabel=$cellLabel, expected=$expected}"
-        }
+        data class Fixture(val cellLabel: String, val expected: Date)
 
         @Theory
         @Throws(Exception::class)
@@ -599,9 +568,7 @@ class KExcelTest2 {
         @JvmField
         val thrown = ExpectedException.none()
 
-        class Fixture(val cellLabel: String) {
-            override fun toString(): String = "Fixture{cellLabel=$cellLabel}"
-        }
+        data class Fixture(val cellLabel: String)
 
         @Theory
         fun test(fixture: Fixture) {
@@ -628,6 +595,121 @@ class KExcelTest2 {
                 Fixture("J8"),
                 Fixture("K8")
             )
+        }
+    }
+
+    class 正常系_set_String {
+        @Rule
+        @JvmField
+        val tempFolder = TemporaryFolder()
+
+        @Test
+        fun test() {
+            val file = TestUtil.getTempWorkbookFile(tempFolder, "book1.xlsx")
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+                sheet["A1"] = "あいうえお"
+
+                KExcel.write(workbook, file.canonicalPath)
+            }
+            // 書き込んだものを再読込する
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+
+                assertThat(sheet["A1"].toStr(), `is`("あいうえお"))
+            }
+        }
+    }
+
+    class 正常系_set_Int {
+        @Rule
+        @JvmField
+        val tempFolder = TemporaryFolder()
+
+        @Test
+        fun test() {
+            val file = TestUtil.getTempWorkbookFile(tempFolder, "book1.xlsx")
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+                sheet["A1"] = 12345
+
+                KExcel.write(workbook, file.canonicalPath)
+            }
+            // 書き込んだものを再読込する
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+
+                assertThat(sheet["A1"].toInt(), `is`(12345))
+            }
+        }
+    }
+
+    class 正常系_set_Double {
+        @Rule
+        @JvmField
+        val tempFolder = TemporaryFolder()
+
+        @Test
+        fun test() {
+            val file = TestUtil.getTempWorkbookFile(tempFolder, "book1.xlsx")
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+                sheet["A1"] = 150.51
+
+                KExcel.write(workbook, file.canonicalPath)
+            }
+            // 書き込んだものを再読込する
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+
+                assertThat(sheet["A1"].toDouble(), `is`(closeTo(150.51, 0.00001)))
+            }
+        }
+    }
+
+    class 正常系_set_Boolean {
+        @Rule
+        @JvmField
+        val tempFolder = TemporaryFolder()
+
+        @Test
+        fun test() {
+            val file = TestUtil.getTempWorkbookFile(tempFolder, "book1.xlsx")
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+                sheet["A1"] = true
+
+                KExcel.write(workbook, file.canonicalPath)
+            }
+            // 書き込んだものを再読込する
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+
+                assertThat(sheet["A1"].toBoolean(), `is`(true))
+            }
+        }
+    }
+
+    class 正常系_set_Date {
+        @Rule
+        @JvmField
+        val tempFolder = TemporaryFolder()
+
+        @Test
+        fun test() {
+            val file = TestUtil.getTempWorkbookFile(tempFolder, "book1.xlsx")
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+                sheet["A1"] = TestUtil.getDateTime(2017, 9, 23, 13, 32, 24)
+
+                KExcel.write(workbook, file.canonicalPath)
+            }
+            // 書き込んだものを再読込する
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+
+                assertThat(sheet["A1"].toDate(), `is`(TestUtil.getDateTime(2017, 9, 23, 13, 32, 24)))
+            }
         }
     }
 }
