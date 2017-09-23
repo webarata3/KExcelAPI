@@ -150,6 +150,7 @@ private fun Cell.setValue(value: Any) {
         is Double -> setCellValue(value)
         is Boolean -> setCellValue(value)
         is Date -> {
+            // 日付セルはフォーマットしてあげないと日付型にならない
             setCellValue(value)
             val wb = sheet.workbook
             val createHelper = wb.getCreationHelper()
