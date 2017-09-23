@@ -13,6 +13,7 @@ import org.junit.rules.ExpectedException
 import org.junit.rules.TemporaryFolder
 import org.junit.runner.RunWith
 import java.io.FileNotFoundException
+import java.util.*
 
 @RunWith(Enclosed::class)
 class KExcelTest2 {
@@ -407,6 +408,37 @@ class KExcelTest2 {
                 Fixture("D5"),
                 Fixture("E5"),
                 Fixture("K5")
+            )
+        }
+    }
+
+    @RunWith(Theories::class)
+    class 正常系_toDate {
+        @Rule
+        @JvmField
+        val tempFolder = TemporaryFolder()
+
+        class Fixture(val cellLabel: String, val expected: Date) {
+            override fun toString(): String = "Fixture{cellLabel=$cellLabel, expected=$expected}"
+        }
+
+        @Theory
+        @Throws(Exception::class)
+        fun test(fixture: Fixture) {
+            val file = TestUtil.getTempWorkbookFile(tempFolder, "book1.xlsx")
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+
+                assertThat(sheet[fixture.cellLabel].toDate(), `is`(fixture.expected))
+            }
+        }
+
+        companion object {
+            @DataPoints
+            @JvmField
+            val PARAMs = arrayOf(
+                Fixture("E6", TestUtil.getDate(2015, 12, 1)),
+                Fixture("G6", TestUtil.getDate(2015, 12, 3))
             )
         }
     }

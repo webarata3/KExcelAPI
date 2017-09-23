@@ -27,6 +27,7 @@ import org.apache.poi.ss.usermodel.Cell
 import org.apache.poi.ss.usermodel.CellType
 import org.apache.poi.ss.usermodel.CellValue
 import org.apache.poi.ss.usermodel.DateUtil
+import java.util.*
 
 class CellProxy(private val cell: Cell) {
     private var cellValue: CellValue? = null
@@ -117,11 +118,11 @@ class CellProxy(private val cell: Cell) {
         when (getCellTypeEnum()) {
             CellType.STRING -> return stringToInt(getStringCellValue())
             CellType.NUMERIC -> return if (isDateType()) {
-                throw IllegalAccessException("cellはintに変換できません")
+                throw IllegalAccessException("cellはIntに変換できません")
             } else {
                 getNumericCellValue().toInt()
             }
-            else -> throw IllegalAccessException("cellはintに変換できません")
+            else -> throw IllegalAccessException("cellはIntに変換できません")
         }
     }
 
@@ -129,18 +130,25 @@ class CellProxy(private val cell: Cell) {
         when (getCellTypeEnum()) {
             CellType.STRING -> return stringToDouble(getStringCellValue())
             CellType.NUMERIC -> return if (isDateType()) {
-                throw IllegalAccessException("cellはdoubleに変換できません")
+                throw IllegalAccessException("cellはDoubleに変換できません")
             } else {
                 getNumericCellValue()
             }
-            else -> throw IllegalAccessException("cellはdoubleに変換できません")
+            else -> throw IllegalAccessException("cellはDoubleに変換できません")
         }
     }
 
     fun toBoolean(): Boolean {
         when (getCellTypeEnum()) {
             CellType.BOOLEAN -> return getBooleanCellValue()
-            else -> throw IllegalAccessException("cellはbooleanに変換できません")
+            else -> throw IllegalAccessException("cellはBooleanに変換できません")
+        }
+    }
+
+    fun toDate(): Date {
+        when (isDateType()) {
+            isDateType() -> return cell.getDateCellValue()
+            else -> throw IllegalAccessException("cellはDateに変換できません")
         }
     }
 }

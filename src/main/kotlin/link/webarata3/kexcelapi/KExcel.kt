@@ -124,19 +124,7 @@ fun Cell.toDouble(): Double = CellProxy(this).toDouble()
 
 fun Cell.toBoolean(): Boolean = CellProxy(this).toBoolean()
 
-fun Cell.toDate(): Date {
-    when (cellTypeEnum) {
-        CellType.NUMERIC -> return dateCellValue
-        CellType.FORMULA -> {
-            val cellValue = getFormulaCellValue(this)
-            when (cellValue.cellTypeEnum) {
-                CellType.NUMERIC -> return dateCellValue
-                else -> throw IllegalAccessException("cellはDeteに変換できません")
-            }
-        }
-        else -> throw IllegalAccessException("cellはDateに変換できません")
-    }
-}
+fun Cell.toDate(): Date = CellProxy(this).toDate()
 
 private fun getFormulaCellValue(cell: Cell): CellValue {
     val workbook = cell.sheet.workbook
