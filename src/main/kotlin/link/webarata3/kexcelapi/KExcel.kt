@@ -32,7 +32,6 @@ import java.util.*
 import java.util.regex.Pattern
 
 
-
 class KExcel {
     companion object {
         @JvmStatic
@@ -54,8 +53,8 @@ class KExcel {
 
         @JvmStatic
         fun cellIndexToCellLabel(x: Int, y: Int): String {
-            require(x >= 0, {"xは0以上でなければなりません"})
-            require(y >= 0, {"yは0以上でなければなりません"})
+            require(x >= 0, { "xは0以上でなければなりません" })
+            require(y >= 0, { "yは0以上でなければなりません" })
             val cellName = dec26(x, 0)
             return cellName + (y + 1)
         }
@@ -101,8 +100,7 @@ operator fun Sheet.get(cellLabel: String): Cell {
     matcher.find()
 
     var num = 0
-    matcher.group(1).toUpperCase().reversed().forEachIndexed {
-        i, c ->
+    matcher.group(1).toUpperCase().reversed().forEachIndexed { i, c ->
         val delta = c.toInt() - 'A'.toInt() + 1
         num += delta * Math.pow(RADIX.toDouble(), i.toDouble()).toInt()
     }
@@ -138,10 +136,10 @@ private fun Cell.setValue(value: Any) {
             // 日付セルはフォーマットしてあげないと日付型にならない
             setCellValue(value)
             val wb = sheet.workbook
-            val createHelper = wb.getCreationHelper()
+            val createHelper = wb.creationHelper
             val cellStyle = wb.createCellStyle()
             val style = createHelper.createDataFormat().getFormat("yyyy/m/d")
-            cellStyle.setDataFormat(style)
+            cellStyle.dataFormat = style
             setCellStyle(cellStyle)
         }
         else -> throw IllegalArgumentException("String、Int、Double、Boolean、Dateのみ対応しています")
