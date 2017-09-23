@@ -144,6 +144,6 @@ private fun Cell.setValue(value: Any) {
             cellStyle.setDataFormat(style)
             setCellStyle(cellStyle)
         }
-        else -> throw IllegalArgumentException("文字列か数値のみ対応しています")
+        else -> throw IllegalArgumentException("String、Int、Double、Boolean、Dateのみ対応しています")
     }
 }

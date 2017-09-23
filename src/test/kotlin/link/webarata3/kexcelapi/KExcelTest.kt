@@ -782,4 +782,25 @@ class KExcelTest {
             }
         }
     }
+
+    class 異常系_set {
+        @Rule
+        @JvmField
+        val tempFolder = TemporaryFolder()
+
+        @Rule
+        @JvmField
+        val thrown = ExpectedException.none()
+
+        @Test
+        fun test() {
+            val file = TestUtil.getTempWorkbookFile(tempFolder, "book1.xlsx")
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+
+                thrown.expect(IllegalArgumentException::class.java)
+                sheet["A1"] = file
+            }
+        }
+    }
 }
