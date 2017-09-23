@@ -51,7 +51,7 @@ repositories {
 }
 
 dependencies {
-    compile 'link.webarata3.kexcelapi:kexcelapi:0.4.0'
+    compile 'link.webarata3.kexcelapi:kexcelapi:0.5.0'
 }
 ```
 
