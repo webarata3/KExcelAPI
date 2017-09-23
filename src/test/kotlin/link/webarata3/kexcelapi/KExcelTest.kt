@@ -12,6 +12,7 @@ import org.junit.rules.ExpectedException
 import org.junit.rules.TemporaryFolder
 import org.junit.runner.RunWith
 import java.io.FileNotFoundException
+import java.io.IOException
 import java.util.*
 
 @RunWith(Enclosed::class)
@@ -35,6 +36,20 @@ class KExcelTest {
         @Test(expected = FileNotFoundException::class)
         fun openFileNameTest() {
             KExcel.open("/dummy")
+        }
+    }
+
+    class 異常系_open_ファイルに書き込めない {
+        @Rule
+        @JvmField
+        val tempFolder = TemporaryFolder()
+
+        @Test(expected = IOException::class)
+        fun openFileNameTest() {
+            val file = TestUtil.getTempWorkbookFile(tempFolder, "book1.xlsx")
+            file.setReadOnly()
+            val wb = KExcel.open(file.canonicalPath)
+            KExcel.write(wb, file.canonicalPath)
         }
     }
 
