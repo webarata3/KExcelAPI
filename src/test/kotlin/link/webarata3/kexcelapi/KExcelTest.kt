@@ -1,6 +1,5 @@
 package link.webarata3.kexcelapi
 
-import org.apache.poi.ss.usermodel.Workbook
 import org.hamcrest.Matchers.*
 import org.junit.Assert.assertThat
 import org.junit.Rule
@@ -27,7 +26,7 @@ class KExcelTest {
         fun openFileNameTest() {
             val file = TestUtil.getTempWorkbookFile(tempFolder, "book1.xlsx")
             val wb = KExcel.open(file.canonicalPath)
-            assertThat<Workbook>(wb, `is`(notNullValue()))
+            assertThat(wb, `is`(notNullValue()))
             wb.close()
         }
     }
@@ -36,6 +35,36 @@ class KExcelTest {
         @Test(expected = FileNotFoundException::class)
         fun openFileNameTest() {
             KExcel.open("/dummy")
+        }
+    }
+
+    class 正常系_シートインデックスでのWorkbookの取得 {
+        @Rule
+        @JvmField
+        val tempFolder = TemporaryFolder()
+
+        @Test
+        @Throws(Exception::class)
+        fun openFileNameTest() {
+            val file = TestUtil.getTempWorkbookFile(tempFolder, "book1.xlsx")
+            val wb = KExcel.open(file.canonicalPath)
+            assertThat(wb[0], `is`(not(nullValue())))
+            wb.close();
+        }
+    }
+
+    class 正常系_シート名でのWorkbookの取得 {
+        @Rule
+        @JvmField
+        val tempFolder = TemporaryFolder()
+
+        @Test
+        @Throws(Exception::class)
+        fun openFileNameTest() {
+            val file = TestUtil.getTempWorkbookFile(tempFolder, "book1.xlsx")
+            val wb = KExcel.open(file.canonicalPath)
+            assertThat(wb["sheet1"], `is`(not(nullValue())))
+            wb.close();
         }
     }
 
