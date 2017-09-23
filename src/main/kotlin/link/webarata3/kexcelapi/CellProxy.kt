@@ -147,7 +147,7 @@ class CellProxy(private val cell: Cell) {
 
     fun toDate(): Date {
         when {
-            isDateType() -> return cell.getDateCellValue()
+            isDateType() -> return cell.dateCellValue
             else -> throw IllegalAccessException("cellはDateに変換できません")
         }
     }
