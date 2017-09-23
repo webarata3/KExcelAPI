@@ -110,14 +110,6 @@ operator fun Sheet.get(cellLabel: String): Cell {
     return this[num, matcher.group(2).toInt() - 1]
 }
 
-private fun normalizeNumericString(numeric: Double): String {
-    return if (numeric == Math.ceil(numeric)) {
-        numeric.toInt().toString()
-    } else {
-        numeric.toString()
-    }
-}
-
 fun Cell.toStr(): String = CellProxy(this).toStr()
 
 fun Cell.toInt(): Int = CellProxy(this).toInt()
@@ -127,13 +119,6 @@ fun Cell.toDouble(): Double = CellProxy(this).toDouble()
 fun Cell.toBoolean(): Boolean = CellProxy(this).toBoolean()
 
 fun Cell.toDate(): Date = CellProxy(this).toDate()
-
-private fun getFormulaCellValue(cell: Cell): CellValue {
-    val workbook = cell.sheet.workbook
-    val helper = workbook.creationHelper
-    val evaluator = helper.createFormulaEvaluator()
-    return evaluator.evaluate(cell)
-}
 
 operator fun Sheet.set(cellLabel: String, value: Any) {
     this[cellLabel].setValue(value)

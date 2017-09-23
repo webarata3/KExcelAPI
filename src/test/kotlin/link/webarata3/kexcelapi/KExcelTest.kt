@@ -620,6 +620,33 @@ class KExcelTest {
         }
     }
 
+    class 正常系_set_String_index {
+        @Rule
+        @JvmField
+        val tempFolder = TemporaryFolder()
+
+        @Test
+        fun test() {
+            val file = TestUtil.getTempWorkbookFile(tempFolder, "book1.xlsx")
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+                sheet[0, 0] = "あいうえお"
+                sheet[0, 1] = "かきくけこ"
+                sheet[1, 2] = "さしすせそ"
+
+                KExcel.write(workbook, file.canonicalPath)
+            }
+            // 書き込んだものを再読込する
+            KExcel.open(file.canonicalPath).use { workbook ->
+                val sheet = workbook[0]
+
+                assertThat(sheet["A1"].toStr(), `is`("あいうえお"))
+                assertThat(sheet["A2"].toStr(), `is`("かきくけこ"))
+                assertThat(sheet["B3"].toStr(), `is`("さしすせそ"))
+            }
+        }
+    }
+
     class 正常系_set_Int {
         @Rule
         @JvmField
