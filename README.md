@@ -15,7 +15,7 @@ Kotlin用のApache POIのラッパーです。皆さん大好きなExcelをで�
 使い方の基本としては、拡張関数を使用しているため `link.arata.kexcelapi.*` パッケージをimportします。
 
 ```kotlin
-import link.arata.kexcelapi.*
+import link.webarata3.kexcelapi.*
 ```
 
 これだけで準備は完了です。これで、次のようにExcelへアクセスできます。
