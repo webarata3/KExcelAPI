@@ -35,7 +35,6 @@ archivesBaseName = "kexcelapi"
 version = "0.5.1"
 description = "POI wrapper for Kotlin"
 
-
 def isDevBuild
 def isCiBuild
 def isReleaseBuild

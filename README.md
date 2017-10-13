@@ -46,12 +46,8 @@ KExcel.open("file/book1.xlsx").use { workbook ->
 Mavenのリポジトリ（Gradleの設定）は次のとおりです。
 
 ```groovy
-repositories {
-    maven { url 'https://raw.githubusercontent.com/webarata3/maven/master/repository' }
-}
-
 dependencies {
-    compile 'link.webarata3.kexcelapi:kexcelapi:0.5.0'
+    compile 'link.webarata3.kexcelapi:kexcelapi:0.5.1'
 }
 ```
 
